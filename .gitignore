@@ -1,0 +1,25 @@
+# Local environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Local data and experiment artefacts
+/data/
+/datasets/
+/outputs/
+/runs/
+/checkpoints/
+*.h5
+*.hdf5
+*.keras
+*.ckpt
+
+# Local credentials and machine settings
+.env
+.env.*
+!.env.example
+.DS_Store
+Thumbs.db
