@@ -35,17 +35,35 @@ The references were read through authorised GitHub access on 14 October 2026: th
 
 No private source code, notebook content, or raw data was copied into this public repository. The other study's split policy, client count and frozen experimental settings are not adopted by EAD-DC-FL. This recovery stage changes dependency status only; it does not authorise claims of exact reproduction.
 
+## Uploaded-helper review, 14 October 2026
+
+The original helper files have now been supplied. The preceding recovery table records the earlier GitHub search outcome and is superseded for these two files by this review.
+
+| File | SHA-256 | Confirmed source behaviour |
+|---|---|---|
+| client_models.py | da2481d73c4958d5839736f62676da7ef7532c65b24e732bc91b1691a4118d5d | Defines simple, medium and deep Keras models, each with softmax output |
+| utility.py | 5aafac7a11532236a5da6b82e5c9dcdcf5e6f4f527c8ea9219b4ce28bbdf4dad | Returns (indexed_groups, most_complex_group_idx); aggregation is an equal-weight arithmetic mean |
+
+Unchanged copies are archived in [references/legacy](../references/legacy/README.md). These are historical inputs, not the combined implementation.
+
+The grouping helper returns integer-keyed entries containing shape and clients. The notebook must unpack the tuple and consume that structure; treating the return value directly as a dictionary is incompatible. Group indices still follow insertion order. The complexity calculation counts all get_weights tensors, including Batch Normalisation state when present; it is not automatically a trainable-parameter capacity measure.
+
+The supplied simple model has hidden widths [64, 32] and Dropout 0.2; medium has [128, 64], Batch Normalisation and Dropout 0.2; deep has [256, 128, 64, 32], Batch Normalisation and Dropout 0.3. Simple and medium use Adam learning rate 0.001, and deep uses 0.0005. These differ from both the notebook's locally defined simple/medium functions and the DC-FL paper architectures. Importing client_models without qualifying or importing its functions does not supply create_model_deep in the notebook's namespace.
+
+Both files passed Python syntax parsing. A synthetic NumPy check verified the utility tuple return, equal-shape grouping, size-based group selection and equal-weight averaging. No TensorFlow model construction, KD, data processing or training was executed. These checks do not validate architecture semantics, weighted FedAvg, or adversarial robustness.
+
 ## Inputs needed before implementation
 
-- [ ] Obtain utility.py and inspect the return contract of group_clients_by_model_shape.
-- [ ] Obtain client_models.py and the missing create_model_deep definition.
+- [x] Obtain utility.py and inspect the return contract of group_clients_by_model_shape.
+- [x] Obtain client_models.py and the missing create_model_deep definition.
 - [ ] Identify the authoritative Small/Medium/Deep and optional master definitions for paper reproduction.
 - [x] Locate a reference identity and checksum record for Process_1 IDS-IoT-2024.csv (indirect metadata only).
 - [ ] Obtain and hash the actual CSV versions referenced by the notebooks: df_test_reduced.csv and Process_1 IDS-IoT-2024.csv, or document their replacement.
 - [ ] Verify how those CSVs were generated, including encoding, normalisation, feature selection, missing-value handling and duplication.
 - [ ] Verify feature names, target placement, class mapping, row count and dataset identity.
 - [ ] Obtain the original package versions if available, including TensorFlow/Keras, NumPy, pandas, scikit-learn and PyOD.
-- [ ] Decide whether missing helpers will be recovered or reconstructed from the method contract. Mark reconstructed components explicitly; do not claim exact reproduction.
+- [x] Recover the original helpers through user uploads.
+- [ ] Resolve legacy model definitions versus paper architectures, logits, grouping identities and aggregation semantics. Mark adaptations explicitly; do not claim exact reproduction.
 - [ ] Resolve data allocation fractions, training budgets, optimiser-state handling and numerical pilot settings in the specification.
 
 ## Findings to resolve
@@ -72,7 +90,7 @@ Cell numbers refer to the physical cell order in the reviewed notebook.
 | Empty-inlier handling is absent in many loops; M3D variant restores all rejected inputs | EAD-FL aggregation blocks and cell 36 | Define failure policies without silent reintroduction |
 | Python, NumPy, TensorFlow and detector randomness are not comprehensively controlled | Both notebooks | Separate and record random streams |
 
-The static review does not establish feature leakage, dataset quality, convergence, or the correctness of saved numerical results. The input CSVs and missing modules were not supplied. Stored exceptions are diagnostic evidence, not fresh execution results.
+The static review does not establish feature leakage, dataset quality, convergence, or the correctness of saved numerical results. At the initial 13 October review, the input CSVs and helper modules had not been supplied; the helper review above records their subsequent recovery. Stored exceptions are diagnostic evidence, not fresh execution results.
 
 ## Reproduction distinctions
 
