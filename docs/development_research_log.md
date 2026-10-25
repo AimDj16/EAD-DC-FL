@@ -84,3 +84,25 @@ After completion: verify matching, inspect per-round screening confusion counts,
 ### Remaining thesis evidence
 
 Independent seeds, justified training duration, targeted/held-out attacks, benign statistical heterogeneity, proxy/master-supervision controls, detector/calibration ablations, costs and independent evaluation remain outstanding. Guarded warm-start and alternative selection/gating policies must retain separate identities. Existing duplicate/conflicting-label and preprocessing limitations remain unresolved. No novelty, formal privacy, general robustness or generalisation claim follows from this log.
+
+
+### Gaussian sigma 0.5 analysis, 25 October 2026
+
+Assistant inspected all four uploaded sigma 0.5 JSON reports and the full teacher diagnostic JSON. All four Gaussian runs completed four rounds; recorded common hashes, initial states, environment, KD rows and budgets matched the benign controls. Diagnostic status completed and original_teacher_replay_exact=true.
+
+Round-4 validation percentages, accuracy / macro-F1:
+
+| Condition | Small | Medium | Deep |
+|---|---|---|---|
+| FedAvg | 58.80 / 40.36 | 51.21 / 34.88 | 52.21 / 34.86 |
+| EAD+FedAvg | 77.12 / 53.77 | 65.00 / 60.33 | 59.86 / 52.22 |
+| KD+FedAvg | 63.20 / 53.27 | 62.66 / 43.99 | 64.97 / 52.96 |
+| EAD+KD+FedAvg | 66.11 / 52.75 | 73.37 / 56.98 | 58.42 / 47.92 |
+
+Plain FedAvg accuracy losses against its benign control: Small 32.58, Medium 31.34, Deep 41.70 percentage points. EAD without KD rejected 15/36 malicious submissions and 0/84 benign submissions; EAD with KD rejected 19/36 and 0/84. Calibration triggered in one of 12 group-rounds with EAD+KD, none with EAD alone. Counts are descriptive repeated client-round observations.
+
+EAD improved accuracy and macro-F1 over unprotected FedAvg in each group under this attack. The combined method was not uniformly best: EAD-only had higher Small accuracy, Deep KD-only had higher accuracy, and combined Small/Deep macro-F1 was below both EAD-only and KD-only. Combined round-4 Medium-teacher KD increased Small accuracy 65.00 to 66.11% while reducing macro-F1 57.64 to 52.75%; Deep accuracy increased 57.78 to 58.42% while macro-F1 fell 50.42 to 47.92%. These are repeated examples of the metric-specific guard limitation.
+
+Targeted Malware-to-Normal rates in Gaussian runs are descriptive error rates, not attack success for a targeted objective. For example EAD-only Deep had 55.81% Malware-to-Normal error despite an untargeted attacker. Accuracy alone therefore conceals security-relevant class errors.
+
+Next: matched targeted label-flipping study using saved poisoned rows and malicious identities. Execute same-runner benign and attack conditions so baseline reuse across runners is verified rather than assumed. Preserve data, manifest, original KD policy and all previous outputs. Freeze a preliminary viva evidence package by Tuesday 27 October, ahead of Thursday 29 October; do not present it as completed confirmatory thesis evaluation. Independent-seed confirmation remains conditional on implementing appropriate manifests and budgets, not reusing seed42 with only a label change.
