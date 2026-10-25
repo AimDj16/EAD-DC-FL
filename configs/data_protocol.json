@@ -1,0 +1,18 @@
+{
+  "status": "candidate_not_frozen",
+  "dataset": "idsiot2024",
+  "target_column": "Attack_Category_x",
+  "grouping": "all_feature_columns_excluding_target",
+  "duplicate_policy": "retain_rows_keep_groups_together",
+  "conflicting_label_policy": "retain_original_labels_keep_groups_together",
+  "allocation_seed": 42,
+  "desired_row_fractions": {
+    "client_training": 0.50,
+    "server_kd": 0.32,
+    "server_validation": 0.08,
+    "test": 0.10
+  },
+  "exact_class_proportions_required": false,
+  "all_classes_required_in_each_partition": true,
+  "preprocessing_provenance_verified": false
+}
