@@ -106,3 +106,37 @@ EAD improved accuracy and macro-F1 over unprotected FedAvg in each group under t
 Targeted Malware-to-Normal rates in Gaussian runs are descriptive error rates, not attack success for a targeted objective. For example EAD-only Deep had 55.81% Malware-to-Normal error despite an untargeted attacker. Accuracy alone therefore conceals security-relevant class errors.
 
 Next: matched targeted label-flipping study using saved poisoned rows and malicious identities. Execute same-runner benign and attack conditions so baseline reuse across runners is verified rather than assumed. Preserve data, manifest, original KD policy and all previous outputs. Freeze a preliminary viva evidence package by Tuesday 27 October, ahead of Thursday 29 October; do not present it as completed confirmatory thesis evaluation. Independent-seed confirmation remains conditional on implementing appropriate manifests and budgets, not reusing seed42 with only a label change.
+
+
+### Source recovery and fidelity correction, 25 October 2026
+
+Original uploads were already available and have now been re-inspected directly. Earlier requests to resend them were unnecessary.
+
+- upload/main(1).ipynb: EAD experiments, 69 cells, SHA256 cb06863e311c06d27b256e264476894e70b4bfc4934bf8e10fa7026718c6e291.
+- upload/main.ipynb: DC prototype, 15 cells, SHA256 0fdb5e439a23fa5de3f557f85a8a3775fcf58ab4b107639628fcddd8261fb05f.
+- upload/utility.py and upload/client_models.py: historical helpers, also archived under references/legacy in the repository.
+- Earlier docs/dependencies_and_source_audit.md already documented source/paper differences. These are research notebooks, not proven authoritative scripts for every published result. Static review only; original notebooks have not been rerun.
+
+All cell references below are physical one-based notebook positions, not execution counts.
+
+Critical EAD difference:
+In EAD notebook cells 24, 25 and 27, first-round calibration checks strict_count <= min(adjusted_counts), where strict_count is the five-detector intersection and adjusted_counts contains four individual detector counts. The intersection count cannot exceed any of those individual counts, so this condition always holds for valid binary flags, including equality. It raises contamination to 0.30 and persists that value in later rounds. Cell 25 immediately reruns detectors; cells 24/27 change the value without an immediate rerun. This differs from the paper's count-range rule and the current integration's per-round reset to 0.20 followed by a rerun only when counts disagree. Do not describe the integration as code-identical EAD-FL.
+
+Other verified EAD differences:
+- Legacy cells use fit followed by predict(flat_scaled)/decision_function(flat_scaled); integration uses fitted labels_/decision_scores_. Numerical equivalence is not established.
+- Legacy neighbour count max(2,n_clients//2), IForest seed42; integration neighbours5 and round/group-specific seeds. Neighbour counts agree at ten clients.
+- Legacy cells train three local epochs, batch32, model hidden128/64 with BN/dropout and AdamW (cell3); current architecture-specific pilots use one epoch, batch128, Adam.
+- Legacy calibrated cells fit five detectors; downstream selected voting and aggregation vary: cell24 five-strict mean, cell25 three-strict median, cell27 three-strict mean. Current uses three-strict sample-weighted FedAvg.
+- Legacy attack helper cell5 adds Gaussian sigma0.5 through global NumPy RNG without preserving original dtype explicitly; integration has independent client/round streams and preserves dtypes.
+- Legacy sweeps assign sign-flip or Gaussian randomly, not Gaussian alone. Label flipping is absent from the inspected helper despite the paper describing it.
+- Legacy IID allocations independently subsample a shared pool and can overlap, whereas current allocations are disjoint. Do not restore this design as a purported correction.
+- Cell25 stored output terminates in a ValueError. Saved source/output states and published table provenance must not be assumed identical.
+
+Verified current sigma0.5 EAD-only per-cluster counts over four rounds:
+Each group has 12 malicious submissions and 28 benign submissions. For Small, Medium and Deep separately, each individual detector LOF/IForest/kNN has TP8/FN4/FP0/TN28. The three-strict ensemble has TP5/FN7/FP0/TN28 in each group. Thus individual count agreement conceals identity disagreement, and strict intersection loses detections. These are descriptive repeated-submission counts, not independent replication.
+
+DC prototype differences:
+main.ipynb cells13/15 use deepest-group teaching, rather than the integration's master warm-start plus adaptive accuracy-guard policy. Cells7/11/13 show softmax model outputs subsequently treated/softened as logits; cell15 assumes linear outputs without establishing that in builders. Uploaded helpers define additional architectures that differ from notebook-local builders and paper architectures. The integration is a documented reconstruction/adaptation, not direct script reuse.
+
+Priority correction:
+Preserve completed runs as paper-rule integration pilots. First audit EAD per cluster with KD disabled; compare separately named notebook-calibration, paper-calibration and fixed0.30 controls on identical submitted models. Keep prediction API and three/five detector effects distinguishable. No claim that the calibration mismatch fully explains the performance gap until controlled evidence exists. Retain the safe data split, dtype and numerical corrections. Do not silently modify the original runner or regenerate the shared manifest. The exact cells/checkpoints/CSV mapping behind published results remains unresolved.
