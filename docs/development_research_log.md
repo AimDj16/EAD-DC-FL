@@ -140,3 +140,31 @@ main.ipynb cells13/15 use deepest-group teaching, rather than the integration's 
 
 Priority correction:
 Preserve completed runs as paper-rule integration pilots. First audit EAD per cluster with KD disabled; compare separately named notebook-calibration, paper-calibration and fixed0.30 controls on identical submitted models. Keep prediction API and three/five detector effects distinguishable. No claim that the calibration mismatch fully explains the performance gap until controlled evidence exists. Retain the safe data split, dtype and numerical corrections. Do not silently modify the original runner or regenerate the shared manifest. The exact cells/checkpoints/CSV mapping behind published results remains unresolved.
+
+
+### EAD fidelity diagnostic results, 25 October 2026
+
+Inspected uploaded ead_fidelity_reports.tar.gz containing completed benign sigma0 and attack sigma0.5 reports. KD disabled; all four reconstruction/baseline checks passed in each report. Each alternative screens the same original uploads. Alternative aggregated models do not feed future rounds. This is an immediate screening/aggregation diagnostic, not an independently trained alternative trajectory.
+
+Aggregate confusion counts (attack TP/FN/FP/TN; benign FP out of120):
+
+| API | Calibration | Ensemble | Attack counts | Benign FP |
+|---|---|---|---|---|
+| fitted labels | paper count range | 3-strict | 15/21/0/84 | 11 |
+| fitted labels | paper count range | 5-strict | 15/21/0/84 | 2 |
+| fitted labels | legacy cell25 | 3-strict | 36/0/0/84 | 16 |
+| fitted labels | legacy cell25 | 5-strict | 36/0/0/84 | 4 |
+| predict | paper count range | 3-strict | 36/0/0/84 | 14 |
+| predict | paper count range | 5-strict | 36/0/0/84 | 3 |
+| predict | legacy cell25 | 3-strict | 36/0/0/84 | 15 |
+| predict | legacy cell25 | 5-strict | 36/0/0/84 | 3 |
+
+Fixed0.30 gives the same reported confusion counts as legacy cell25 for the corresponding API and ensemble in both arms. This demonstrates no advantage of the legacy trigger over fixed0.30 on these uploads.
+
+For every attacked group/round, three-detector initial counts are [2,2,2] using fitted labels, versus [0,2,2] using predict. LOF produces the observed count difference. The count-range trigger therefore activates in all12 group-rounds with predict and in none with fitted labels. After rerunning at0.30, predict+paper policy has TP12/FN0/FP0/TN28 within each architecture across four rounds. The five-detector version offers no extra malicious detections here but fewer benign false rejections: 3/120 versus14/120. These are repeated-submission counts, not independent replications.
+
+Round4 attack candidate accuracy on original uploaded-model trajectory: baseline fitted+paper 3-strict Small77.12%, Medium65.00%, Deep59.86%; predict+paper (3 or5) Small89.18%, Medium78.43%, Deep88.50%. These are immediate candidate aggregate metrics on an inherited trajectory and must not be presented as final results of four-round training under the alternative policy. Previous contamination may remain embedded in benign uploads.
+
+Interpretation correction: initial poor screening cannot be attributed simply to EAD-FL failing under architecture heterogeneity. A substantive prediction-API adaptation changed the calibration dynamics. The observed difference does not establish predict as universally superior, nor justify the legacy always-true trigger. Original package environment and exact source-to-published-result mapping remain unresolved.
+
+Next recommended bounded confirmation: register a separately named predict+paper-count-range configuration, with current seeds and all other settings held fixed; first run EAD+FedAvg benign/attack without KD. Preserve fitted-label originals and contract-bound source hashes. Retain 3-strict as primary fidelity comparison; evaluate 5-strict as a labelled secondary configuration because its benign false-rejection benefit is development-selected. Reintroduce KD only after end-to-end screening behaviour is verified. Do not silently relabel original runs or choose contamination using the known malicious fraction.
