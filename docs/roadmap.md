@@ -11,7 +11,7 @@ The first deliverable is a complete method specification and dependency audit. T
 | 3. Benign DC-FL | Implement architecture-specific aggregation and S4, including master warm start and correct KD | Fresh-environment execution; finite models; verified KD loss; correct pre/post-KD snapshots |
 | 4. EAD-FL reproduction | Implement homogeneous filtering, strict-vote candidates, paper-rule calibration and Median aggregation | Known detector orientation; correct votes; ground truth isolated from defence; independent model trajectories |
 | 5. Combined pipeline | Insert per-cluster filtering before aggregation | Compatibility checks; explicit minimum cohorts; logged fallback; accepted sample weights normalised |
-| 6. Targeted poisoning and KD transfer | Add targeted label flipping and a feasible backdoor; evaluate the verified S4/EAD-Median baseline | Validation/test separation; clean/attack pairing; target denominators; pre/post-KD comparisons; no test-based attack tuning |
+| 6. Targeted poisoning and KD transfer | Add targeted label flipping and a feasible backdoor; evaluate the matched S4/EAD-FedAvg baseline and explicit Median comparator | Validation/test separation; clean/attack pairing; target denominators; pre/post-KD comparisons; no test-based attack tuning |
 | 7. Controlled study | Matched clean/attack arms, baselines and ablations | Repeated seeds; per-cluster attack proportions; uncertainty across seeds; no test-based tuning |
 | 8. Thesis outputs | Produce tables and figures from recorded runs | Every result maps to source revision, data manifest, environment, seed and configuration |
 
@@ -56,7 +56,7 @@ These are planned checks, not checks already passed.
 ## Initial experiment sequence
 
 1. Verify benign architecture-specific aggregation and S4, including master training and warm-start budgets.
-2. Verify EAD filtering, calibration and Median aggregation in clean and untargeted positive-control runs.
+2. Verify EAD filtering, calibration and sample-weighted FedAvg in matched clean and untargeted positive-control runs; retain Median as a separate comparator.
 3. Freeze the primary calibrated strict-voting configuration using the papers and separate development evaluation.
 4. Evaluate targeted label flipping with matched clean controls across the four core filtering/KD combinations.
 5. Evaluate a targeted backdoor only after trigger feasibility and clean/triggered evaluation sets are specified.
@@ -67,3 +67,4 @@ These are planned checks, not checks already passed.
 Targeted attacks are the main security question. Untargeted attacks check the implementation against the original threat setting. Do not tune the baseline to fail, assume S4 prevents targeted harm, or claim WEAD-FL superiority before a matched comparison.
 
 Keep final thesis settings separate from development settings. Larger experiments proceed only after the relevant correctness checks pass; pilot success does not establish full-horizon stability or adversarial robustness.
+

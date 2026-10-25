@@ -12,9 +12,9 @@ This study must allow a favourable result for EAD-DC-FL. It does not assume that
 
 Use DC-FL S4: a master-teacher warm start, adaptive selection of the cluster teacher by server-validation accuracy, and the paper's candidate commit/revert rule in its adaptive branch. Do not replace accuracy with attack success rate, modify warm-start acceptance, or add attack-aware teacher screening without identifying a separate variant.
 
-Use calibrated EAD-FL filtering followed by coordinate-wise Median aggregation inside each architecture cluster. In the supplied EAD-FL paper, EAD-Median reports 98.0%, 97.6%, 96.5% and 96.1% final accuracy for 10, 20, 50 and 100 clients under the reported 30% untargeted malicious condition. It is a strong starting point, but is not the unique best rule at every scale.
+Use calibrated EAD-FL filtering followed by sample-weighted FedAvg inside each architecture cluster for the primary matched study. Coordinate-wise Median remains a separate comparator. In the supplied EAD-FL paper, EAD-Median reports 98.0%, 97.6%, 96.5% and 96.1% final accuracy for 10, 20, 50 and 100 clients under the reported 30% untargeted malicious condition. It is a strong starting point, but is not the unique best rule at every scale.
 
-The calibration experiment describes three-detector strict voting; five-detector strict voting also has strong benign-client preservation results. Table II does not fully identify the voting configuration behind every aggregation row. Verify this correspondence before claiming an exact reproduced baseline. Use calibrated strict EAD-Median as the intended main configuration, retaining three- and five-detector candidates and majority-voting sensitivity runs.
+The calibration experiment describes three-detector strict voting; five-detector strict voting also has strong benign-client preservation results. Table II does not fully identify the voting configuration behind every aggregation row. Verify this correspondence before claiming an exact reproduced baseline. The current matched development configuration uses three-detector strict EAD-FedAvg. Retain five-detector candidates, majority-voting sensitivities and EAD-Median as explicit separate comparisons.
 
 Resolve the primary voting configuration from paper/code verification and separate development evaluation of clean utility, benign exclusion and the original untargeted setting. Record selection criteria before inspecting the held-out targeted results. Do not select the least effective variant to manufacture a gap. If the evidence does not distinguish candidates, report both.
 
@@ -42,12 +42,12 @@ Targeted model-update manipulation and adaptive evasion are later, explicitly sp
 
 Run independent model trajectories for:
 
-1. Architecture-specific Median aggregation without filtering or KD.
-2. DC-FL S4 with Median aggregation and no EAD filtering.
-3. Calibrated EAD-Median without KD.
-4. Calibrated EAD-Median with DC-FL S4.
+1. Architecture-specific sample-weighted FedAvg without filtering or KD.
+2. DC-FL S4 with sample-weighted FedAvg and no EAD filtering.
+3. Calibrated EAD-FedAvg without KD.
+4. Calibrated EAD-FedAvg with DC-FL S4.
 
-This main comparison holds the aggregation rule constant while varying filtering and KD. Report paper-faithful DC-FL with FedAvg separately. Sample-weighted FedAvg versions, no calibration, alternative voting and static S2 are ablations.
+This main comparison holds sample-weighted FedAvg constant while varying filtering and KD. Median, no calibration, alternative voting and static S2 are separate comparisons. Report paper-faithful DC-FL reproduction separately where its client allocation or other settings differ. Every matched condition must share the saved initial checkpoints, data allocations, normalisation, master and participation schedule defined in [matched development](matched_fedavg_development.md).
 
 Keep server data, master-training budgets, class mappings and evaluation samples identical where applicable. When KD is disabled, report the removed master/KD computation rather than implying identical total compute.
 
@@ -87,3 +87,4 @@ The separate WEAD-FL method and frozen attack identifiers are not redefined here
 - Development selection criteria, experiment horizon, tail window and repeated seeds.
 
 No attack or defence settings are selected by assuming a desired outcome.
+

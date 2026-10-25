@@ -2,11 +2,11 @@
 
 Research planning for integrating Ensemble Anomaly Detection (EAD-FL) with server-centric Distilled Clustered Federated Learning (DC-FL).
 
-The proposed framework combines DC-FL's adaptive S4 distillation with calibrated EAD-FL filtering and Median aggregation within architecture clusters. It retains one model per architecture cluster. The principal study evaluates targeted poisoning and whether harmful class-specific behaviour survives filtering or transfers through server-side knowledge distillation (KD).
+The proposed framework combines DC-FL's adaptive S4 distillation with calibrated EAD-FL filtering and sample-weighted FedAvg aggregation within architecture clusters. It retains one model per architecture cluster. The principal study evaluates targeted poisoning and whether harmful class-specific behaviour survives filtering or transfers through server-side knowledge distillation (KD).
 
 ## Current status
 
-Planning and source-audit stage, 14 October 2026. No new training implementation or experiment has been run in this repository. The supplied original helper files are preserved in references/legacy; their grouping and equal-weight averaging functions passed limited synthetic checks. Model construction and training remain unverified. Results from the individual methods do not establish targeted-attack robustness or the performance of their integration.
+Development implementation, 25 October 2026. The repository contains component checks and four-round benign, targeted and Gaussian pilot runners. New matched runs default to sample-weighted FedAvg and load shared initial checkpoints, data identities and full-participation schedules. See [matched FedAvg development](docs/matched_fedavg_development.md) for preparation, execution and report-input audits. Numerical/contract tests are available; the new TensorFlow runners still require validation on the UWE GPU. Existing Median pilot results remain separate historical references. Component checks and individual-method results do not establish full-run reproducibility or poisoning robustness.
 
 ## Planning documents
 
@@ -20,7 +20,12 @@ The structural requirements are recorded for implementation. Numerical pilot set
 
 ## Immediate next step
 
-The DC-FL helpers have now been supplied and inspected. Resolve their differences from the paper, obtain and verify the processed IDSIoT2024 data and preprocessing, and specify S4's master-training and warm-start settings before implementing the benign baseline.
+Run the matched-experiment unit tests, create the shared seed-42 development
+initial states once on UWE, then execute the paired FedAvg zero-noise runs. Do not
+regenerate the transferred dataset splits, client allocations, normalisation,
+compromised-client selection or master checkpoint. Compare completed report
+inputs and checkpoint arrays before interpreting poisoning effects. Preprocessing
+provenance and independent data support remain unresolved limitations.
 
 ## Scope
 
@@ -37,3 +42,4 @@ The planning documents use the supplied manuscript versions:
 3. Aimen Djemaa, Djamel Djenouri and Phil Legg, *Heterogeneity-Aware Poisoning Attacks and Mitigation in Federated Learning: A Comprehensive Survey and Taxonomy*.
 
 Bibliographic identifiers and the exact manuscript versions should be verified before preparing publication outputs. PDFs are not redistributed in this repository.
+
