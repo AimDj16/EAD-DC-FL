@@ -282,3 +282,32 @@ Despite final TMR near0, FedAvg Medium Malware recall91.01% vs99.63% benign; Dee
 Clean-mask JSON now inspected: status completed, configuration clean_reference_mask_kd_v1, all4 reference_comparisons exact_match=true, mismatches empty. This independently confirms the saved verification record, based on script comparisons; original tensor files themselves were not uploaded. Preserves conclusion that revised Gaussian EAD+originalKD trajectory can be reproduced with no poisoning under matched retained contributors.
 
 Next priorities: consolidate trajectories and metric trade-offs; collect original protocol/checkpoint metadata and classify revised-predict targeted evaluation as outstanding. A bounded revised EAD targeted benign/attack comparison is needed before claiming the current working integration is validated on both poisoning families. Preserve original versions and avoid universal superiority or novel-method claims.
+
+
+### Revised predict-EAD targeted confirmation, 26 October 2026
+
+Inspected four reports in targeted_predict_confirmation_reports.tar.gz: benign/attack crossed with KDoff/originalKDon, EADon/FedAvg. All completed4rounds. Shared initial tensors/experiment/data/master/model/budgets/environment/KD rows and actual participation/minibatch orders matched. Both benign trajectories exactly match corresponding Gaussian predict benign reports in teacher choices, initial/final screening, pre/post KD metrics, KD records and rejection lists.
+
+Targeted attack Malware-to-Normal on saved1497 training rows in nine compromised clients per round, three per architecture. Revised three-detector predict API with per-round count-range calibration. All12 attack group-rounds triggered calibration to0.30, but complete detection did not always follow.
+
+Attack screening counts:
+- KDoff TP30/FN6/FP0/TN84; recall83.33%. Per-group TP Small12/12, Medium11/12, Deep7/12.
+- KDon TP32/FN4/FP0/TN84; recall88.89%. Per-group TP Small11/12, Medium11/12, Deep10/12.
+These are repeated submissions, not independent runs. Later KDoff/KDon detection differences arise on their respective training trajectories, not a direct same-round KD change to EAD.
+Benign FP14/120 KDoff, FP12/120 KDon, matching Gaussian predict benign controls.
+
+KDoff targeted excess TMR against benign:
+Small0 across4rounds; Medium0.499percentage points in round1 then0; Deep0 until round3, then11.111percentage points (89/801) in round3, returning0 in round4. Deep round3 missed2/3 malicious submissions. Round4 Malware recall remains91.14% in Deep versus99.63% benign despite TMR0. Need all-class metrics/confusion for error destinations.
+Original-KDon post-KD excess TMR0 for every group/round. Final absolute TMR2/801=0.2497% eachgroup, equal to corresponding benign; absolute errors remain. This supports a conditional targeted-error result, not general security.
+
+Final attack validation accuracy/macro-F1 percentages:
+- EAD+FedAvg: Small91.36/77.44, Medium82.46/73.23, Deep93.01/82.40.
+- EAD+originalKD+FedAvg: Small90.71/85.92, Medium91.63/87.44, Deep88.07/81.70.
+Corresponding benign KDon Small91.09/86.83, Medium84.54/79.31, Deep88.39/81.92. Medium attack accuracy exceeding benign is a trajectory observation, not a benefit-of-poisoning claim.
+KD improves macro-F1 versus KDoff for Small/Medium but Deep accuracy/F1 fall and Small accuracy slightly falls. Master warm-start still unconditionally commits large first-round declines: Medium84.28 to63.18%, Deep85.24 to64.45%. Server supervision and teacher/gate controls remain necessary.
+
+Across completed pilots:
+Predict EAD detects all36 Gaussian sigma0.5 submissions in checked modes but only30/36 or32/36 label-flipped submissions. Successful calibration activation is not sufficient for universal detection. Gaussian and label flipping should not be conflated as equally detectable.
+The bounded development package now covers revised EAD/aggregation with and without original KD for both poisoning families, plus Gaussian guarded variant and attribution/teacher/fidelity diagnostics. Guarded targeted behaviour remains unevaluated. No final protocol/test evaluation, independent seeds, adequate convergence study, non-IID integration study or H_P execution has been completed.
+
+Priority: consolidate viva evidence using explicit implementation/variant labels; avoid further ad hoc gate changes. Distinguish source fidelity corrections from proposed methods and state unresolved original package/provenance and data-quality limitations. Choose a frozen confirmatory design only after the viva development package is reviewed.
