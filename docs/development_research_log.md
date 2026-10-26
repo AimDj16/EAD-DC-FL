@@ -168,3 +168,23 @@ Round4 attack candidate accuracy on original uploaded-model trajectory: baseline
 Interpretation correction: initial poor screening cannot be attributed simply to EAD-FL failing under architecture heterogeneity. A substantive prediction-API adaptation changed the calibration dynamics. The observed difference does not establish predict as universally superior, nor justify the legacy always-true trigger. Original package environment and exact source-to-published-result mapping remain unresolved.
 
 Next recommended bounded confirmation: register a separately named predict+paper-count-range configuration, with current seeds and all other settings held fixed; first run EAD+FedAvg benign/attack without KD. Preserve fitted-label originals and contract-bound source hashes. Retain 3-strict as primary fidelity comparison; evaluate 5-strict as a labelled secondary configuration because its benign false-rejection benefit is development-selected. Reintroduce KD only after end-to-end screening behaviour is verified. Do not silently relabel original runs or choose contamination using the known malicious fraction.
+
+
+### End-to-end EAD predict confirmation, 26 October 2026
+
+Inspected both reports from uploaded ead_predict_confirmation_reports.tar.gz. Both completed four rounds; configuration ead_predict_paper_3strict_v1, EAD on, KD off, FedAvg. Verified original common input fields, initial weights, data hashes, training settings, runtime environment, attack protocol and actual participation/minibatch-order records match corresponding originals. base_runner_sha256 matches original script hash. First-round candidate metrics and rejected IDs exactly match the earlier fixed-upload predict+paper three-detector diagnostic, in both arms.
+
+Attack sigma0.5: TP36/FN0/FP0/TN84 across four rounds. Each architecture TP12/FN0/FP0/TN28. Every group-round initial counts [0,2,2], calibration rerun at0.30, three malicious models rejected. Detection precision/recall/F1 are1.00 and benign rejection0 in this attack pilot. These are36 repeated submissions from nine compromised clients, not36 independent adversaries or runs.
+
+Benign sigma0: FP14/TN106 out of120 submissions (11.67%); Small4/40, Medium5/40, Deep5/40. Calibration triggered in7/12 benign group-rounds. Therefore disagreement is not a reliable indication of malicious presence by itself. This study does not isolate the effect of calibration from a no-calibration alternative on the new trajectory.
+
+Round4 validation percentages, accuracy / macro-F1:
+- New benign: Small91.39/77.46, Medium82.59/75.06, Deep94.05/83.68.
+- New attack: Small91.36/77.44, Medium82.47/73.24, Deep94.07/82.90.
+- Old fitted-label EAD attack: Small77.12/53.77, Medium65.00/60.33, Deep59.86/52.22.
+
+Despite perfect malicious filtering, the new attack run is not identical to its benign control: attack rejects all nine compromised clients, whereas benign includes their honest contributions unless screened. It consequently trains on different accepted data. Medium attack macro-F1 is1.83 points below matched new benign. Small Injection recall remains0 in both new arms. Perfect detection does not imply perfect utility, all-class security or generalisation.
+
+Conclusion: same inputs and independently evolving trajectories support the prediction/calibration fidelity finding, with substantially better attack-run utility than the old fitted-label variant in this seed. This is not exact reproduction of the published experiment, nor final independent confirmation: configuration selection used earlier development observations. Both four-round runs are validation-only; final test remains untouched.
+
+Next: retain this named three-detector predict+paper configuration as the working fidelity configuration. Reintroduce original-mode KD in a separately named matched benign/attack pair after removing the runner's intentional KD-off restriction through a reviewed new variant; the current command cannot enable KD. Defer broad H_P expansion until integration behaviour is assessed. Preserve old fitted-label runs as implementation-sensitivity evidence. Consider a benign control excluding exactly the compromised identities if later needed to separate filtering-composition effects from poisoning damage. Five-strict remains a secondary option requiring end-to-end benign/attack evaluation. Independent seeds, stronger/held-out threats and adequate training duration remain outstanding.
