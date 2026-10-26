@@ -224,3 +224,26 @@ The clean control has no poisoning and no EAD execution; it applies exact accept
 It does not establish that removing three clients alone causes the degradation, that EAD is generally robust, or that KD is universally harmful. Original master warm-start and accuracy-only gate remain separate utility limitations, already evidenced directly by pre/candidate/committed metrics.
 
 Next bounded comparison: separately identified guarded warm-start with predict EAD, keeping data, seed, screening and KD budgets matched; compare benign and attack arms against original mode. Apply accuracy acceptance during rounds1–3 rather than unconditional commitment. Retain accuracy guard limitations for macro-F1/minority recall; do not change teacher metric and warm-start guard simultaneously. First inspect control reference_comparisons or upload its report to archive verification.
+
+
+### Guarded predict-EAD KD results, 26 October 2026
+
+Inspected ead_predict_guarded_reports.tar.gz, both completed four-round reports. Common recorded inputs/initial tensors/master/environment/budgets/attack protocols match corresponding original-mode predict-KD reports. Actual participation/row-order hashes match. Round1 initial/final screening, pre-KD metrics and KD candidate metrics exactly match original mode, isolating the initial acceptance-policy difference. For every performed KD attempt, validation_accuracy_guard is recorded, accepted==(candidate_accuracy>=pre_accuracy), committed metrics equal accepted candidate or pre-KD metrics as appropriate, and committed accuracy>=pre-KD accuracy. This is report-level validation; guarded checkpoint rollback tensors have not been independently loaded here.
+
+Each arm rejects8/9 master warm-start candidates, accepting only Small round1. Benign overall KD decisions:1 accepted,10 rejected,1 self-distillation skip. Attack:2 accepted,9 rejected,1 skip. EAD attack TP36/FN0/FP0/TN84, calibration12/12; benign FP15/TN105 (12.5%), calibration6/12.
+
+Round4 percentages, accuracy / macro-F1:
+- Guarded benign Small71.93/74.97, Medium82.59/75.06, Deep94.05/83.68.
+- Guarded attack Small72.87/61.41, Medium82.47/73.24, Deep94.07/82.90.
+- Original predict-KD attack Small69.88/61.70, Medium84.66/79.71, Deep83.87/70.50.
+- Predict EAD KDoff attack Small91.36/77.44, Medium82.47/73.24, Deep94.07/82.90.
+
+Immediate guard works as specified: attack round1 rejects Medium63.53% candidate and preserves85.03%, rejects Deep62.20% candidate and preserves85.96%. But this does not establish better final trajectories for all groups.
+
+Small round1 master-KD increases accuracy57.65 to66.45% and is accepted. Despite later guarding, final Small accuracy72.87% remains18.49points below KDoff91.36%. Do not attribute this single-seed trajectory effect solely to one update without the relevant fixed-intervention control.
+
+Attack round4 Deep-to-Small KD increases accuracy69.54 to72.87% but reduces macro-F1 71.18 to61.41%; MITM recall is0 after KD. Thus harmful class/metric trade-offs occur even with Deep teaching and guarded warm-start. Medium candidate is rejected although macro-F1 improves73.24 to74.22%, because accuracy falls82.47 to82.30%.
+
+Conclusion: guarded warm-start prevents the specified immediate validation-accuracy declines, preserves Medium/Deep KDoff-equivalent final results in this attack pilot, but does not establish beneficial KD overall or protect macro-F1/minority recall. It is a methodological variant, not a complete solution or formal no-harm guarantee. Validation is reused for decisions; independent performance remains unverified. All settings one development seed/four rounds/full participation/IID client allocations.
+
+Priority: freeze the bounded Gaussian development analysis and preserve original/guarded identities; collect pending targeted reports and clean-control JSON before launching more changes. Further teacher/gate optimisation requires predeclared criteria and independent evaluation; do not keep selecting variants on these same results. Hypotheses for future work include objective alignment, proxy/master distribution, insufficient horizon and transfer suitability, not established causal diagnoses.
