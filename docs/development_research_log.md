@@ -211,3 +211,16 @@ Interpretation: screening success and KD utility are separate. No poisoned submi
 Next essential diagnostic: an explicitly labelled benign/oracle-mask control that uses clean local models but the exact accepted IDs from the attack run, with same initial states, row orders, budgets and original KD. Evaluate whether accepted aggregate tensors, teacher choices and committed tensors match the attacked run. True malicious identities or attack-derived masks are diagnostic-only controls, never deployable policy inputs. Do not call this attack leakage if it matches.
 
 Then evaluate guarded warm-start as a separate variant to address unconditional master-KD damage. Accuracy gating alone still does not protect macro-F1 or minority classes; do not claim it solves all failures. Any new teacher/gate metric requires its own development/independent evaluation. Existing original/predict results remain preserved; four-round one-seed validation evidence is preliminary.
+
+
+### Clean reference-mask control completion, 26 October 2026
+
+User supplied terminal completion: CLEAN REFERENCE-MASK CONTROL: COMPLETE; sigma0, original mode, no final test, no final protocol freeze. The saved path was truncated in the message. Full control report has not yet been uploaded or independently inspected.
+
+Given the published control's fail-on-first-mismatch logic, reaching completion indicates all four round comparisons passed for teacher/phase/participation, row orders, local losses, accepted sample counts and coefficients, pre-KD metrics, candidate KD losses/metrics, acceptance decisions, committed metrics and exact committed tensor arrays. This is inferred from the executed script's completion condition, not a fresh inspection of the resulting JSON.
+
+The clean control has no poisoning and no EAD execution; it applies exact accepted-client lists from the completed predict-EAD+original-KD attack. Therefore the poor trajectory is reproducible without any poisoned uploads when retained contributions are matched. This supports an attribution to the retained-client learning/KD process rather than residual poisoned uploads in this specific Gaussian seed42 experiment.
+
+It does not establish that removing three clients alone causes the degradation, that EAD is generally robust, or that KD is universally harmful. Original master warm-start and accuracy-only gate remain separate utility limitations, already evidenced directly by pre/candidate/committed metrics.
+
+Next bounded comparison: separately identified guarded warm-start with predict EAD, keeping data, seed, screening and KD budgets matched; compare benign and attack arms against original mode. Apply accuracy acceptance during rounds1–3 rather than unconditional commitment. Retain accuracy guard limitations for macro-F1/minority recall; do not change teacher metric and warm-start guard simultaneously. First inspect control reference_comparisons or upload its report to archive verification.
