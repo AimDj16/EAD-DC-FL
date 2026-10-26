@@ -311,3 +311,22 @@ Predict EAD detects all36 Gaussian sigma0.5 submissions in checked modes but onl
 The bounded development package now covers revised EAD/aggregation with and without original KD for both poisoning families, plus Gaussian guarded variant and attribution/teacher/fidelity diagnostics. Guarded targeted behaviour remains unevaluated. No final protocol/test evaluation, independent seeds, adequate convergence study, non-IID integration study or H_P execution has been completed.
 
 Priority: consolidate viva evidence using explicit implementation/variant labels; avoid further ad hoc gate changes. Distinguish source fidelity corrections from proposed methods and state unresolved original package/provenance and data-quality limitations. Choose a frozen confirmatory design only after the viva development package is reviewed.
+
+
+### Twelve-round matched Gaussian batch, seed 42, 26 October 2026
+
+Inspected replication_seed42_rounds12_reports.tar.gz: manifest plus all eight benign/attack crossed EAD/KD reports, completed rounds 1–12, experiment 33fc67b96cead72110ff9613e42c2c9e9f127f56fec055555bc03f6a902fd9dd. Recomputed manifest ID; shared matched-run fingerprint, actual participation, row-order hashes, initial tensors and registered runner hash agree. Checked survivor sample counts/FedAvg coefficients and upload/screening audit consistency. All eight first-four-round JSON trajectories and recorded checkpoint hashes match the corresponding earlier reports. One report additionally records successful runtime exact-prefix checks. Uploaded arrays were absent, so no independent checkpoint-array reload was performed.
+
+Attack screening: both EAD-only and EAD/KD TP108/FN0/FP0/TN252, calibration36/36 architecture-rounds. Clean false rejections: EAD-only42/360 (11.67%); EAD/KD37/360 (10.28%). Repeated submissions are not independent replications.
+
+Round12 attack accuracy/macro-F1%:
+- FedAvg: Small77.61/48.84, Medium68.42/41.70, Deep35.18/27.25.
+- EAD/FedAvg: Small96.68/88.93, Medium83.62/78.95, Deep90.68/79.00.
+- KD/FedAvg: Small92.03/82.89, Medium88.62/70.97, Deep87.08/68.13.
+- EAD/KD/FedAvg: Small86.28/85.27, Medium86.08/85.24, Deep86.68/85.65.
+
+Combined Small round4/8/12 accuracy 69.88/93.66/86.28% shows horizon dependence and fluctuation, not convergence. Combined method does not dominate. Clean Medium EAD-only macro-F1 75.67% versus FedAvg83.79%, with MITM recall62.22% versus100%, warrants explicit benign-cost reporting. Accuracy-accepted KD can reduce macro-F1; round4 combined attack Small accuracy +1.20pp/F1 -7.03pp, Deep accuracy +2.74pp/F1 -10.78pp. All attack uploads are excluded in screened Gaussian runs, so retained poisoned aggregation inputs cannot explain their remaining utility differences. The four-round mask replay was not extended here.
+
+All final-test/protocol-freeze flags remain false and provenance verification unresolved. No new targeted, non-IID or participation-heterogeneity results in this archive. Full tables, verification limits and measured elapsed times are in [replication_seed42_rounds12_results.md](replication_seed42_rounds12_results.md).
+
+Eight runs total169.9 minutes, approximately2h50. Next recommended bounded step: same frozen12round eight-cell Gaussian/benign batch for predeclared training/noise seeds2026 and31415, approximately5h40 additional at observed runtime. Fixed data/master/compromised IDs limit replication scope. Preserve seed42 outcomes and avoid method changes or best-round selection in response to them.
