@@ -247,3 +247,38 @@ Attack round4 Deep-to-Small KD increases accuracy69.54 to72.87% but reduces macr
 Conclusion: guarded warm-start prevents the specified immediate validation-accuracy declines, preserves Medium/Deep KDoff-equivalent final results in this attack pilot, but does not establish beneficial KD overall or protect macro-F1/minority recall. It is a methodological variant, not a complete solution or formal no-harm guarantee. Validation is reused for decisions; independent performance remains unverified. All settings one development seed/four rounds/full participation/IID client allocations.
 
 Priority: freeze the bounded Gaussian development analysis and preserve original/guarded identities; collect pending targeted reports and clean-control JSON before launching more changes. Further teacher/gate optimisation requires predeclared criteria and independent evaluation; do not keep selecting variants on these same results. Hypotheses for future work include objective alignment, proxy/master distribution, insufficient horizon and transfer suitability, not established causal diagnoses.
+
+
+### Targeted study and clean-control report inspection, 26 October 2026
+
+Inspected targeted_and_clean_control_reports.tar.gz: eight targeted runner reports and one clean reference-mask report. All completed. Targeted common experiment ID, initial tensors, data/master/model hashes, budgets, runtime environment, KD rows, actual participation and minibatch orders match. All eight targeted script hashes are c910bd09ded185a06152ef22f31f5041b68c0d1c356de3a0e4d473a2925753b7, matching the inspected run_targeted_development_pilot.py source. It uses fitted labels_/decision_scores_, not the revised predict API. Keep these results as historical fitted-label EAD pilots; they cannot validate revised EAD on targeted poisoning.
+
+Across all four benign targeted configurations and all rounds, pre/post KD metrics, KD records, teachers and rejected IDs exactly match the corresponding original Gaussian benign runner reports. This confirms recorded benign cross-runner behaviour; checkpoint arrays were not included for independent comparison.
+
+Attack protocol: 9 fixed malicious clients,3 per architecture, all4 rounds. 100% of each compromised client's Malware rows are relabelled Normal;1497 distinct allocated training rows total per round (Small500, Medium499, Deep498). Features, other labels, server/evaluation labels unchanged. Repeated epochs/round exposures are not distinct poisoned observations. Source_label_poison_fraction1.0 is conditional on local Malware class, not all local data.
+
+Crucial trajectory result: unprotected FedAvg attack TMR%, rounds1–4:
+- Small17.23,9.49,9.49,0.
+- Medium22.10,12.48,1.87,0.
+- Deep40.20,33.33,15.48,0.125.
+Matched benign TMR0 in each case. Therefore the targeted attack has pronounced early effects but little persistent final source-to-target error in this4round configuration. Do not call it ineffective solely from final results.
+
+Fitted-label EAD without KD attack TMR%, rounds1–4:
+- Small5.12,0,0,0.
+- Medium10.99,0.50,0,0.
+- Deep10.99,0.37,13.98,0.
+EAD mitigates but does not uniformly remove transient targeted error (Deep round3 still13.98%). Screening TP17/FN19/FP0/TN84 across rounds. With original KD, TP16/FN20/FP0/TN84.
+
+Original KD-only post-KD TMR closely matches benign across rounds, apart from Small final0.375 vs benign0.250%. Combined fitted-label EAD+originalKD post-KD TMR matches corresponding benign across rounds, final2/801=0.250% eachgroup. This may reflect trusted master supervision and requires utility/central-data controls; not proof that EAD alone supplies the benefit.
+
+Round4 targeted attack accuracy/macro-F1%:
+- FedAvg Small91.67/77.78, Medium81.78/74.95, Deep93.05/82.28.
+- EAD+FedAvg Small91.59/77.71, Medium81.87/75.05, Deep93.01/82.40.
+- KD+FedAvg Small90.88/87.64, Medium84.24/78.78, Deep88.83/81.76.
+- EAD+KD+FedAvg Small91.57/88.06, Medium92.36/89.25, Deep92.70/89.04.
+
+Despite final TMR near0, FedAvg Medium Malware recall91.01% vs99.63% benign; Deep90.64% vs99.63%. EAD-only Medium/Deep91.14% vs99.63%. Malware may be misclassified as classes other than Normal. Evaluate full confusion matrices before identifying those destinations; no such confusion matrix inference is made here.
+
+Clean-mask JSON now inspected: status completed, configuration clean_reference_mask_kd_v1, all4 reference_comparisons exact_match=true, mismatches empty. This independently confirms the saved verification record, based on script comparisons; original tensor files themselves were not uploaded. Preserves conclusion that revised Gaussian EAD+originalKD trajectory can be reproduced with no poisoning under matched retained contributors.
+
+Next priorities: consolidate trajectories and metric trade-offs; collect original protocol/checkpoint metadata and classify revised-predict targeted evaluation as outstanding. A bounded revised EAD targeted benign/attack comparison is needed before claiming the current working integration is validated on both poisoning families. Preserve original versions and avoid universal superiority or novel-method claims.
