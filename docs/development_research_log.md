@@ -188,3 +188,26 @@ Despite perfect malicious filtering, the new attack run is not identical to its 
 Conclusion: same inputs and independently evolving trajectories support the prediction/calibration fidelity finding, with substantially better attack-run utility than the old fitted-label variant in this seed. This is not exact reproduction of the published experiment, nor final independent confirmation: configuration selection used earlier development observations. Both four-round runs are validation-only; final test remains untouched.
 
 Next: retain this named three-detector predict+paper configuration as the working fidelity configuration. Reintroduce original-mode KD in a separately named matched benign/attack pair after removing the runner's intentional KD-off restriction through a reviewed new variant; the current command cannot enable KD. Defer broad H_P expansion until integration behaviour is assessed. Preserve old fitted-label runs as implementation-sensitivity evidence. Consider a benign control excluding exactly the compromised identities if later needed to separate filtering-composition effects from poisoning damage. Five-strict remains a secondary option requiring end-to-end benign/attack evaluation. Independent seeds, stronger/held-out threats and adequate training duration remain outstanding.
+
+
+### Predict EAD plus original KD confirmation, 26 October 2026
+
+Inspected benign/attack reports in ead_predict_kd_confirmation_reports.tar.gz. Both completed four rounds. Shared input fields, initial tensors, training settings, runtime environment, master/data/model/attack hashes, attack protocols and KD row allocations match corresponding KD-off predict runs. Actual participation and local row orders match. Round1 initial/final screening records and pre-KD metrics exactly match KD-off runs, confirming same-round screening independence from later KD.
+
+Attack sigma0.5: TP36/FN0/FP0/TN84. Every architecture/round rejects all three poisoned submissions; calibration triggers in12/12 group-rounds from initial [0,2,2] to contamination0.30. Benign KD-on FP12/TN108 out of120 submissions (10%); calibration7/12 group-rounds.
+
+Round4 percentages, accuracy / macro-F1:
+- KDoff benign Small91.39/77.46, Medium82.59/75.06, Deep94.05/83.68.
+- KDon benign Small91.09/86.83, Medium84.54/79.31, Deep88.39/81.92.
+- KDoff attack Small91.36/77.44, Medium82.47/73.24, Deep94.07/82.90.
+- KDon attack Small69.88/61.70, Medium84.66/79.71, Deep83.87/70.50.
+
+Original master warm-start still causes large immediate accuracy reductions despite complete screening: attack round1 Medium85.03 to63.53%; Deep85.96 to62.20%. It is accepted unconditionally by design.
+
+Round4 attack selects Medium, while benign selects Deep. Medium-to-Small KD increases accuracy68.68 to69.88% but reduces macro-F1 68.73 to61.70%; Medium-to-Deep increases accuracy81.13 to83.87% but reduces macro-F1 81.28 to70.50%. MITM recall drops from62.22% pre-KD to0 post-KD in both student groups. The accuracy guard accepts both. Benign Medium candidate accuracy81.05% <84.54% is rejected although macro-F1 increases79.31 to80.53%.
+
+Interpretation: screening success and KD utility are separate. No poisoned submission enters the attack aggregates in this pilot. Therefore low final utility must not be presented as evidence of poisoning propagated through accepted malicious uploads. Attack-arm aggregates retain seven clients/group, whereas benign screening retains different client sets. Missing contributions and resulting optimisation/teacher-selection trajectories can explain differences; these mechanisms need controls.
+
+Next essential diagnostic: an explicitly labelled benign/oracle-mask control that uses clean local models but the exact accepted IDs from the attack run, with same initial states, row orders, budgets and original KD. Evaluate whether accepted aggregate tensors, teacher choices and committed tensors match the attacked run. True malicious identities or attack-derived masks are diagnostic-only controls, never deployable policy inputs. Do not call this attack leakage if it matches.
+
+Then evaluate guarded warm-start as a separate variant to address unconditional master-KD damage. Accuracy gating alone still does not protect macro-F1 or minority classes; do not claim it solves all failures. Any new teacher/gate metric requires its own development/independent evaluation. Existing original/predict results remain preserved; four-round one-seed validation evidence is preliminary.
