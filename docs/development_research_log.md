@@ -330,3 +330,24 @@ Combined Small round4/8/12 accuracy 69.88/93.66/86.28% shows horizon dependence 
 All final-test/protocol-freeze flags remain false and provenance verification unresolved. No new targeted, non-IID or participation-heterogeneity results in this archive. Full tables, verification limits and measured elapsed times are in [replication_seed42_rounds12_results.md](replication_seed42_rounds12_results.md).
 
 Eight runs total169.9 minutes, approximately2h50. Next recommended bounded step: same frozen12round eight-cell Gaussian/benign batch for predeclared training/noise seeds2026 and31415, approximately5h40 additional at observed runtime. Fixed data/master/compromised IDs limit replication scope. Preserve seed42 outcomes and avoid method changes or best-round selection in response to them.
+
+
+### Completed three-seed twelve-round Gaussian replication, 27 October 2026
+
+Inspected the new replication_additional_seeds_rounds12_reports.tar.gz and seed42 archive together: three manifests and24reports, eight matched cells per seed42/2026/31415, all completed12rounds. Manifest IDs recomputed; within-seed matched inputs, actual cohorts/order hashes, initial tensor hashes, sample-weighted survivor coefficients, upload/screening audit consistency, strict voting/calibration triggers and KD acceptance/committed metrics verified. Cross-seed source/configuration/runtime hashes, data/master/compromised selection, client allocations, participation and budgets agree. Gaussian sigma0.5, noise seeds trainingseed+200 and three active compromised clients per group verified. No checkpoint/data arrays were independently reloaded from these JSON-only result archives.
+
+Attack final macro-F1%, mean ± sampleSD across3runs:
+- FedAvg Small53.73±5.09, Medium43.32±12.06, Deep40.38±11.83.
+- EAD/FedAvg Small79.36±8.28, Medium76.32±2.62, Deep77.98±1.25.
+- KD/FedAvg Small78.70±3.98, Medium64.81±7.29, Deep65.70±4.77.
+- EAD/KD/FedAvg Small84.88±0.45, Medium85.19±0.18, Deep85.15±1.17.
+
+Each screened configuration pools TP324/FN0/FP0/TN756 across the3seeds, calibration108/108 architecture-rounds. These are repeated client-round submissions, not324 independent replications. Clean false rejections EAD-only136/1080=12.59%, EAD/KD120/1080=11.11%.
+
+Important update to seed42-only interpretation: adding KD to EAD improves Medium/Deep attack macro-F1 in all3seeds, Small in2/3. Small KD-induced accuracy/F1 losses in seed42 do not persist as the same sign in both new seeds. Combined method has highest mean attack macro-F1 for all architectures among these four methods at fixed12rounds; it does not dominate accuracy or all individual runs. Accuracy-accepted adaptive KD reduces macro-F1 in all3combined attack runs at some rounds. Benign rejection persists. Gaussian noise/model L2 ratios roughly2.86–7.29 in screened runs, so complete detection is conditional on a conspicuous perturbation regime.
+
+Replication varies initialisation/training/noise/EAD seed only, conditional on fixed IID partition/master/compromised identities. Finaltest and finalfreeze remainfalse, provenance unresolved. Three runs give descriptive repeatability evidence, not broad statistical superiority or generalisation. Both data/validation selection dependencies and trusted master supervision require qualification.
+
+All24 recorded elapsed times total8.41hours. Gaussian package complete; no more Gaussian seeds or threshold/gate changes recommended for the viva package. Next bounded extension: same12round four-cell targeted attack batch for each existingseed,12newruns, reusing same-component benigncontrols, estimated4–5hours. Pre-specify finalmetrics, per-round pre/postKD TMR and per-run mean/maximum excessTMR to preserve transient effects. Existing runner already supports this without changing manifest-bound source. Then consolidate rather than adding conditions before viva preparation.
+
+Full tables and claim limits: [replication_three_seed_rounds12_results.md](replication_three_seed_rounds12_results.md).
