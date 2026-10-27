@@ -1,0 +1,23 @@
+{
+  "report_count": 36,
+  "seeds": [
+    42,
+    2026,
+    31415
+  ],
+  "experiment_ids": {
+    "42": "33fc67b96cead72110ff9613e42c2c9e9f127f56fec055555bc03f6a902fd9dd",
+    "2026": "738eb04c2f29842b2f67f38881d311dec66152e306b8a0dbc38cf0c09d9c5886",
+    "31415": "681c3b44d178754c04d1fc20581b80782caf3ec15e9769fc5fa0481e8ca3983d"
+  },
+  "archive_sha256": {
+    "replication_seed42_rounds12_reports.tar.gz": "47631930a587d62a3a6abc7eca8895e143605e25e396af0c3ad07b081fd0ec97",
+    "replication_additional_seeds_rounds12_reports.tar.gz": "3e3502db6d4102ff389ba64e7338c8056265c91c1d48a9ed04ae2966998c0e37",
+    "replication_targeted_three_seeds_rounds12_reports.tar.gz": "07ddd496dbd62fdaaddad7bba9583782be3c817f96b1ce5258bb5d9c987b6c79"
+  },
+  "replication_unit": "independent training run conditional on fixed data/master/compromised set",
+  "uncertainty": "sample standard deviation across runs, not a confidence interval",
+  "checkpoint_arrays_independently_reloaded": false,
+  "test_evaluated": false,
+  "final_protocol_frozen": false
+}
