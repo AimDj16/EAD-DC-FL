@@ -351,3 +351,30 @@ Replication varies initialisation/training/noise/EAD seed only, conditional on f
 All24 recorded elapsed times total8.41hours. Gaussian package complete; no more Gaussian seeds or threshold/gate changes recommended for the viva package. Next bounded extension: same12round four-cell targeted attack batch for each existingseed,12newruns, reusing same-component benigncontrols, estimated4–5hours. Pre-specify finalmetrics, per-round pre/postKD TMR and per-run mean/maximum excessTMR to preserve transient effects. Existing runner already supports this without changing manifest-bound source. Then consolidate rather than adding conditions before viva preparation.
 
 Full tables and claim limits: [replication_three_seed_rounds12_results.md](replication_three_seed_rounds12_results.md).
+
+
+### Targeted12round three-seed evaluation and main-package completion,27October2026
+
+Inspected replication_targeted_three_seeds_rounds12_reports.tar.gz (SHA25607ddd496dbd62fdaaddad7bba9583782be3c817f96b1ce5258bb5d9c987b6c79). All12targeted reports completed12rounds. Combined with previous24reports, all36main development runs pass within-seed matched fingerprints, manifest/initial tensor/runner hashes, cohorts/orders, survivor coefficients, screening votes/calibration and KD commitment checks. Recorded targeted execution changes1497training labels per round (Small500/Medium499/Deep498), exactly the saved nine clients, with no Gaussian noise. Underlying data/poison arrays/checkpoint tensors were absent, so this remains report/source verification.
+
+Label-flipping screening:
+- EAD-only TP293/FN31/FP0/TN756, recall90.43%, calibration108/108group-rounds.
+- EAD/KD TP287/FN37/FP3/TN753, recall88.58%, calibration105/108.
+KD follows screening within each round; later screening differences are trajectory-dependent, not a direct alteration of current-round EAD decisions.
+
+Combined postKD Malware-to-Normal TMR equals the same-seed/same-component benign value at all108seed/architecture/round observations. Absolute errors remain, commonly2/801=0.2497%. This supports a bounded measured-security conclusion, not universal robustness or absence of other poisoning effects.
+
+Critical transient failure: seed42 Deep EAD-only round7 accepts all3attackers despite calibration0.20->0.30. LOF flagsnone, IForest[2,14,26], KNN[2,11,26]; strictintersectionempty. TMR424/801=52.93% vsbenign1/801, excess52.81pp. Final-round security summaries would hide this failure.
+
+Critical transfer/gate failure: seed42 KD-only round6, Deepteacher44/801targeterrors; Medium2->45/801targeterrors afterKD while accuracy83.57->84.91% and macro-F181.36->83.12%. Candidate accepted. This directly shows accuracy and macro-F1 gains can coexist with worse targeted security. Counts are consistent with transfer, without proving identity of affected examples. Opposite trade-off: seed2026 KD-only Deep round5 candidate113->6targeterrors butaccuracy84.03->80.83%, rejected.
+
+Targeted finalmacro-F1 mean±sampleSD%:
+- FedAvg Small82.13±7.28, Medium78.29±2.37, Deep81.24±5.82.
+- EAD/FedAvg Small79.36±8.29, Medium76.47±2.71, Deep80.26±5.34.
+- KD/FedAvg Small84.63±0.20, Medium87.86±4.28, Deep85.07±0.85.
+- EAD/KD/FedAvg Small83.80±2.03, Medium86.19±2.52, Deep84.13±1.42.
+Thus combined has stronger observed targeted-TMR trajectories but lower mean targeted endpointmacro-F1 thanKD-only. Do not claim universal utility superiority.
+
+Targeted elapsed4.49hours; main36run total12.90recorded hours. CSVs, auditmetadata and two reviewed SVG figures saved under docs/evidence/development_20261027/. Added scripts/summarise_development_archives.py for reproducible reportchecks/exports. CSVs cross-checked against a separately calculated analysis. Training source unchanged.
+
+Consolidated interpretation, claimmatrix, Chapter4/5 links and viva brief: [development_evidence_summary_20261027.md](development_evidence_summary_20261027.md). Main package complete as a development study. Stop adding conditions for current viva preparation; preserve originalreports/checkpoints/settings. Finaltest untouched, finalprotocol notfrozen, provenance and broader thesis evaluation remain outstanding.
