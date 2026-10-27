@@ -378,3 +378,14 @@ Thus combined has stronger observed targeted-TMR trajectories but lower mean tar
 Targeted elapsed4.49hours; main36run total12.90recorded hours. CSVs, auditmetadata and two reviewed SVG figures saved under docs/evidence/development_20261027/. Added scripts/summarise_development_archives.py for reproducible reportchecks/exports. CSVs cross-checked against a separately calculated analysis. Training source unchanged.
 
 Consolidated interpretation, claimmatrix, Chapter4/5 links and viva brief: [development_evidence_summary_20261027.md](development_evidence_summary_20261027.md). Main package complete as a development study. Stop adding conditions for current viva preparation; preserve originalreports/checkpoints/settings. Finaltest untouched, finalprotocol notfrozen, provenance and broader thesis evaluation remain outstanding.
+
+
+### Upstream data provenance and access constraint,27October2026
+
+The user confirms that the script/notebook producing Process_1 IDS-IoT-2024.csv and the original unprocessed data are unavailable to them, with subscription access reported as a download constraint. Do not describe this access restriction as independently verified: browsing could not retrieve the IEEE DataPort landing page, including a robots-denied response, and did not verify an open raw-data/preprocessing download.
+
+Reviewed current configs/data_protocol_groups2.json, scripts/prepare_candidate_split_groups2.py and scripts/prepare_development_clients.py. Top-level exact-feature groups are kept together and the additional StandardScaler is fitted on client_training rows only. The historical local14October audit reports file-wide moments consistent with earlier standardisation, but this is not proof of its fitting procedure. Supplied legacy notebooks load already processed CSVs and did not establish the producer pipeline in the reviewed cells. Upstream scaling/encoding/feature-selection provenance remains unverified, not confirmed leakage.
+
+Retain the36run development package as a conditional comparison on the fixed, checksum-identified processed representation. Shared inputs support matched method comparisons but cannot remove or quantify any unknown upstream bias. Do not reset preprocessing_provenance_verified totrue, reconstruct fictitious preprocessing, overwrite results or imply leakage-free raw-to-test evaluation.
+
+Recommendation: record this evidence gap explicitly and proceed with other verifiable controls. A later protocol may be frozen for held-out evaluation within the processed representation with that limitation retained; obtaining raw data is not an automatic prerequisite to any such evaluation, and a within-file holdout cannot establish independent raw-data generalisation. Broader claims should be supported through a separately documented dataset/pipeline with verified preprocessing when feasible. No subscription purchase is required to preserve and analyse the current evidence.
