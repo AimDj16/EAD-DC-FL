@@ -514,3 +514,54 @@ same four controls with existing seed2026/31415contracts, eight additional runs,
 before stronger claims. Preserve original policy and report seed dependence if the
 finding fails to replicate. Chapter4/5 must qualify the role of master supervision
 and recurring KD, rather than attributing the measured protection to recurring KD alone.
+
+
+### Within-FL KD schedule replication: seed 31415, 28 October 2026
+
+Inspected kd_schedule_seed31415_v1_reports.tar.gz, SHA256
+6521d93804f7836bc65ce3b534f39aea1869b54c327ba1f96a4962ebc916c170.
+Four additional 12-round controls completed, plus two reused original references.
+Source/report hashes, manifest identity, initial hashes, common fingerprints,
+participation/orders, original-reference bytes, first-round pre-KD records,
+warm-start round1–3 records/recorded checkpoint hashes and the recomputed summary
+all pass. Detector/calibration/FedAvg/poisoning/teacher/KD records are consistent.
+Actual raw arrays, predictions and checkpoint tensors remain absent from this
+aggregate upload. Runtime exact-tensor checks are reported, not independently
+reloaded here. No final-test evaluation or final-protocol freezing.
+
+Warm-start-only and original full KD both match their policy-matched benign
+committed targeted-error rates throughout all 36 architecture/round observations.
+Across seeds42 and31415, this is72 observations per policy, with two independent
+run replications, not72 independent runs. Recurring KD after round3 is unnecessary
+to reproduce that measured protection in these two tested configurations.
+
+Adaptive-only positive excess TMR peaks in seed31415: Small0.1248pp,
+Medium0.3745pp, Deep0.1248pp, unlike seed42 Medium13.1086pp/Deep52.8090pp.
+Master teaching cannot therefore be described as universally necessary.
+Adaptive teachers vary; Deep receives7KD phases,6accepted. In round2,
+Medium teaches Deep and accepted KD changes target errors101->1/801,
+accuracy75.51->77.34%, macroF167.67->70.03%. This records beneficial security
+recovery, contrasting the seed42 accepted harmful-KD case. Teacher identity,
+recipient eligibility and complete trajectories matter; this is not an isolated
+causal explanation for every seed difference.
+
+Seed31415 attacked endpoint accuracy/macroF1%:
+full Small85.86/84.83, Medium86.09/84.81, Deep86.13/85.21;
+warm-only Small83.05/80.14, Medium83.83/81.32, Deep86.03/83.25;
+adaptive-only Small82.55/79.12, Medium82.75/79.31, Deep83.12/79.58.
+FullKD leads both alternatives on these endpoint metrics in this seed, while
+seed42 showed a different Deep utility ranking. Targeted protection and utility
+must remain distinct claims.
+
+Attack screening TP/FN/FP/TN: full96/12/1/251, warm96/12/1/251,
+adaptive99/9/0/252. Clean false rejections34/360,44/360,37/360.
+New elapsed time9443.19seconds,2.62hours. Recorded costs omit inherited
+master-pretraining and exposures differ, so no compute-matched efficiency claim.
+
+Verified total now44completed12round FL runs: main36 plus8KD controls.
+Six server-only fits are separate. Seed2026 KD-control archive has not been
+received, so its four requested controls are not counted as verified. Request
+kd_schedule_seed2026_v1_reports.tar.gz if already completed, without rerunning
+existing conditions. No new factor sweep is needed before that inspection.
+Results: [kd_schedule_seed31415_results.md](kd_schedule_seed31415_results.md).
+Audit and216trajectory rows: docs/evidence/kd_schedule_seed31415_20261028/.
