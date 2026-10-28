@@ -1,5 +1,8 @@
 # Server supervision audit and isolated references
 
+**Results update,28October2026:** the UWE audit and all six requested central-only reference fits have completed. Master validation metrics replayed exactly; boundary/scaler checks passed. See [server_supervision_seed42_results.md](server_supervision_seed42_results.md) for verified outcomes and their limits. The protocol below records what was specified before that execution.
+
+
 Prepared28October2026. This is an additional control protocol, not a replacement for the completed36run development evaluation. No control outcomes are claimed before UWE execution.
 
 ## Verified implementation facts
