@@ -417,3 +417,46 @@ Matched seed42 benign combined FL has roughly86%accuracy/85%macroF1. The tested 
 All central references already have99.50%Malware recall and2/801Malware-to-Normal errors. Trusted server supervision remains a plausible contributor to targeted protection. DoS recall29.01–37.52% in student references exposes class-specific limitations. References are unpoisoned, one seed only, not robustness demonstrations.
 
 Elapsed82.22seconds, excluding inherited master-pretraining cost. Main FL count remains36; six additional reference fits and one master replay are separate diagnostics. Full tables and claim limits: [server_supervision_seed42_results.md](server_supervision_seed42_results.md). These results can now be included in the viva evidence, replacing any pending-control description.
+
+
+### Within-FL KD schedule controls prepared, 28 October 2026
+
+Following the completed server-supervision audit, the user asked to continue coding.
+The next bounded diagnostic separates the original master warm-start from recurring
+adaptive KD inside FL. Six central-only fits cannot isolate those interacting roles.
+
+Added separate scripts/run_kd_schedule_control.py,
+scripts/run_kd_schedule_control_batch.py, src/ead_dc_fl/kd_control_protocol.py,
+tests/test_kd_schedule_controls.py and docs/kd_schedule_controls.md. Original
+manifest-bound training, attack, model, contract and preparation sources remain
+unchanged. Original runner SHA256 remains
+7553b723b338a05a1a444a650049265dbcc95bcdfba40b22a563acc06d8ee308.
+
+First stage is four new seed-42, 12-round runs with EAD on and FedAvg:
+warm_start_only and adaptive_only, each benign and Malware-to-Normal attacked.
+The original full-KD benign/targeted pair is reused. All initial states, allocations,
+local training/orders, participation, EAD, attack identities/rows/timing, proxy inputs
+and validation rows stay fixed. KD exposure intentionally differs and is recorded.
+adaptive_only still uses labelled validation for teacher selection and acceptance;
+it is not a label-free server method. This is an ablation, not a new defence.
+
+Preflight checks the existing contract, registered hashes, original references and
+shared-prefix checkpoints. Every control must reproduce original round-1 pre-KD
+training/screening records. warm_start_only must reproduce all original round1–3
+cluster records and exact checkpoint tensors, then skip KD. full_replay is an
+optional verification mode, excluded from the default four-run batch. Conflicts
+and incomplete outputs stop execution and remain preserved.
+
+All 34 local tests passed, including 12 new protocol tests. Syntax and batch CLI
+checks passed. New validators accepted six uploaded original full-KD benign/targeted
+reports and all 72 round records across seeds42/2026/31415. Static diff confirms
+inherited local training, attacks, EAD, FedAvg, KD loss and accuracy acceptance.
+TensorFlow and real UWE inputs/checkpoints are unavailable here, so GPU replay
+and new control outcomes remain pending. No numerical benefit is claimed.
+
+The batch produces policy-matched benign/attack summaries and
+kd_schedule_seed42_v1_reports.tar.gz. Analyse complete security trajectories and
+round-12 utility; do not use rounds or clients as independent replications.
+Replicate a substantive one-seed interpretation with the two existing additional
+seed contracts before stronger claims. No final-test use, final protocol freezing,
+proxy tuning or change to the main36-run evidence package occurs in this stage.
