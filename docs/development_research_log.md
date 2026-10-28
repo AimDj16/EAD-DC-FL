@@ -404,3 +404,16 @@ Optional controls: same-seed initial Small/Medium/Deep students trained solely o
 Six new non-TensorFlow boundary/normalisation/metric tests passed locally; existing12matched tests passed; syntax and CLI checks passed. Full TensorFlow/data/checkpoint execution has NOT been performed here because the runtime lacks TensorFlow and actual UWE inputs. Actual saved-master report/weights and reference metrics await the user's UWE audit output. No new numerical control findings or runtimes are claimed.
 
 Output is a new outputs/controls/server_supervision_seed42_v1 directory, with aggregate report, validation predictions and student weights; final-test predictions are not performed. All36main FL results remain unchanged. Protocol, interpretation limits, commands and completion criteria are in [server_supervision_audit.md](server_supervision_audit.md).
+
+
+### Server supervision audit completed,28October2026
+
+Inspected server_supervision_seed42_v1_report.tar.gz, statuscompleted, six student references. Audit source hashmatches; initial tensors and all four benign reference report hashes/finalmetrics match the prior seed42 main archive. Confusion-matrix arithmetic independently reproduces accuracy/F1/classcounts/targeted errors/Normal false alarms. Feature-group overlaps zero; training-only scaler numerically matches. Saved-master metrics reproduce exactly. Masterunchanged, existingoutputs unmodified, testnot evaluated. Original arrays/checkpoints absent from this aggregate upload.
+
+Master accuracy65.47%, macro-F164.68%.
+Server-supervised-only accuracy/macroF1%: Small66.28/65.25, Medium66.51/65.37, Deep68.12/66.89.
+Master-distilled-only: Small64.21/65.32, Medium65.49/63.94, Deep67.99/65.86.
+Matched seed42 benign combined FL has roughly86%accuracy/85%macroF1. The tested central-only procedures do not reproduce its overall utility, but this is not an isolated causal KD estimate or a compute-matched comparison.
+All central references already have99.50%Malware recall and2/801Malware-to-Normal errors. Trusted server supervision remains a plausible contributor to targeted protection. DoS recall29.01–37.52% in student references exposes class-specific limitations. References are unpoisoned, one seed only, not robustness demonstrations.
+
+Elapsed82.22seconds, excluding inherited master-pretraining cost. Main FL count remains36; six additional reference fits and one master replay are separate diagnostics. Full tables and claim limits: [server_supervision_seed42_results.md](server_supervision_seed42_results.md). These results can now be included in the viva evidence, replacing any pending-control description.
