@@ -3,26 +3,34 @@
 
 ## Additional within-FL controls, verified 28 October 2026
 
-The main36run study is unchanged. Four additional seed-42 controls now separate
-master warm-start from recurring adaptive KD, reusing the original EAD-on full-KD
-benign/targeted pair. Both full KD and warm-start-only match their own benign
-committed targeted-error rates in all36architecture/round observations. Recurring
-KD after round3 is not required to reproduce that specific protection in this
-one-seed setting. EAD, FedAvg and client training remain; this is not evidence that
-the master alone is sufficient.
+The main 36-run study is unchanged. Eight additional controls across seeds 42 and
+31415 now separate master warm-start from recurring adaptive KD, reusing the
+original EAD-on full-KD benign/targeted pairs. Both full KD and warm-start-only
+match their own benign committed targeted-error rates at all 72 architecture/round
+observations across these two seeds. Recurring KD after round 3 is not required
+to reproduce that specific protection in these evaluated configurations. EAD,
+FedAvg and client training remain; this is not evidence of master-only sufficiency.
 
-The no-master-teaching adaptive control reaches peak excess targeted error of
-13.11pp in Medium and52.81pp in Deep. In round3, an accepted Medium KD candidate
-increases accuracy81.78->90.55% and macro-F178.52->80.05%, while targeted errors
-increase0->105/801. Deep is teacher all12attacked rounds and receives no KD.
-Final utility still favours different methods for different architectures.
+The no-master-teaching adaptive control is seed-dependent. Seed 42 has peak excess
+targeted error of 13.11 pp in Medium and 52.81 pp in Deep; seed 31415 has peaks of
+0.12 pp, 0.37 pp and 0.12 pp in Small/Medium/Deep. Master teaching cannot be claimed
+universally necessary from these comparisons. There are two independent run
+replications per condition, not 72 independent runs.
 
-These findings qualify attribution of the original combined security result to
-recurring KD. They support replication with the two existing additional seeds,
-not replacement of the main method or a general necessity claim. Full results:
-[kd_schedule_seed42_results.md](kd_schedule_seed42_results.md). Finaltest remains
-untouched; finalprotocol remains unfrozen. These controls are additional to the
-six central-only fits described elsewhere in this summary.
+KD has contrasting security outcomes. In seed-42 round 3, an accepted Medium
+candidate increases accuracy 81.78->90.55% and macro-F1 78.52->80.05% while targeted
+errors increase 0->105/801. In seed-31415 round 2, accepted Medium-to-Deep KD reduces
+targeted errors 101->1/801 while accuracy and macro-F1 improve. Deep is always the
+attacked teacher and never a recipient in seed 42, but receives seven KD phases in
+seed 31415. These observations motivate stage-specific evaluation of teacher
+selection, recipient eligibility and metric alignment, without proving the sole
+cause of every seed difference. Endpoint utility also has architecture/seed trade-offs.
+
+Full results: [seed 42](kd_schedule_seed42_results.md) and
+[seed 31415](kd_schedule_seed31415_results.md). The verified FL count is now 44,
+with six central-only fits separate. The seed-2026 control archive is still missing;
+inspect it before a three-seed summary. Preserve the original method and report
+seed dependence. Final test untouched; final protocol unfrozen.
 
 
 **Additional evidence,28October2026:** the fixed-master replay and six seed42central-only reference fits are complete. Their validation accuracy is64–68%, compared with about86%for the matched benign combined FL run. All central references already have99.50%Malware recall and2/801Malware-to-Normal errors. These tested central-only procedures do not reproduce overall FL utility, while trusted server supervision remains a plausible contributor to targeted protection. The controls are unpoisoned, one-seed and not compute-matched; they do not isolate the master contribution within FL. See [server_supervision_seed42_results.md](server_supervision_seed42_results.md). The main matched FL count remains36.
