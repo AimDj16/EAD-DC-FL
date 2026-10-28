@@ -1,12 +1,18 @@
 # EAD-DC-FL method specification
 
+Historical planning specification. For the settings actually executed and the
+separate, not-yet-implemented extensions, see
+[implemented_development_protocol_20261028.md](implemented_development_protocol_20261028.md).
+Its provisional detector, seed and evaluation proposals below are not a record
+that those conditions were executed or that the final protocol was frozen.
+
 Version 0.2, 14 October 2026. Status: planning specification, not an implemented or validated method.
 
 ## Objective
 
-Establish one reproducible experimental framework combining DC-FL S4 with calibrated EAD-FL and Median aggregation, and evaluate targeted poisoning under architectural and statistical heterogeneity. Determine whether targeted harm survives binary filtering or transfers through server-side KD while clean utility remains acceptable. Use the resulting evidence, if limitations are observed, to motivate WEAD-FL.
+Establish one reproducible experimental framework combining DC-FL S4 with calibrated EAD-FL and sample-weighted FedAvg aggregation, and evaluate targeted poisoning under architectural and statistical heterogeneity. Determine whether targeted harm survives binary filtering or transfers through server-side KD while clean utility remains acceptable. Use the resulting evidence, if limitations are observed, to motivate WEAD-FL.
 
-Improved robustness is an experimental question. Combining the methods is not evidence of improved detection, classification, or security. S4 and EAD-Median are selected from the supplied papers as strong baseline components; their combination is not claimed to be globally optimal. The exact calibrated three- or five-detector voting configuration remains to be verified. See the [targeted-attack study](targeted_attack_study.md) for selection criteria.
+Improved robustness is an experimental question. Combining the methods is not evidence of improved detection, classification, or security. S4 and EAD filtering provide the component foundations. FedAvg is the primary aggregation rule for matched development experiments; Median is a separate comparator. Their combination is not claimed to be globally optimal. The exact calibrated three- or five-detector voting configuration remains to be verified. See the [targeted-attack study](targeted_attack_study.md) for selection criteria.
 
 ## System and threat assumptions
 
@@ -43,7 +49,7 @@ These settings are proposed pilot choices. They do not reproduce either paper in
 | Regularisation | No Batch Normalisation or Dropout in the combined pilot | DC-FL model choice; EAD-FL reproduction retains its own architecture |
 | Allocation | Disjoint IID; equal client sample counts where feasible | Initial development condition |
 | Participation | All clients in every round | Initial scope |
-| Aggregation | Coordinate-wise Median within each cluster | Primary combined baseline; sample-weighted FedAvg remains a control |
+| Aggregation | Sample-weighted FedAvg within each cluster | Primary matched baseline; coordinate-wise Median is a comparator |
 | Detection | LOF, Isolation Forest, kNN, PCA and One-Class SVM | Per-cluster fitting; settings pending |
 | Voting | Calibrated strict voting, with three- and five-detector candidates | Exact primary configuration pending verification; majority voting is a sensitivity comparison |
 | Calibration | Paper-rule calibration in the primary EAD baseline | Activation and persistence must be specified; no-calibration is an ablation |
@@ -61,7 +67,7 @@ Standardise detector inputs within the current architecture cluster, as a docume
 
 Retain full-weight detection as the first integration baseline. Update differences relative to the received cluster model are a distinct later variant. Any normalisation or dimensionality reduction beyond the reproduction pipeline also requires a separate configuration and ablation.
 
-Only accepted, compatible contributions enter aggregation. Coordinate-wise Median is the primary aggregation rule; it is not sample-count weighted. The FedAvg control uses accepted clients' recorded training sample counts, renormalised after filtering. Use the same validated sample-count convention across methods. Other robust rules remain comparisons, with their admissible cohort sizes and tolerance parameters declared explicitly.
+Only accepted, compatible contributions enter aggregation. Sample-weighted FedAvg is the primary aggregation rule and uses accepted clients' recorded training sample counts, renormalised after filtering. Coordinate-wise Median remains an explicitly selected unweighted comparator. Use the same validated sample-count convention across methods. Other robust rules remain comparisons, with their admissible cohort sizes and tolerance parameters declared explicitly.
 
 ## Federated round
 
@@ -104,7 +110,7 @@ In S4's adaptive branch, compare each candidate's validation accuracy with the s
 
 ## Experimental comparisons and outcomes
 
-Compare architecture-specific FedAvg, DC-FL without filtering, cluster-specific EAD-FL without KD, and EAD-DC-FL. Use S4 plus calibrated strict EAD-Median as the intended primary combined baseline, subject to voting-configuration verification. Keep alternative aggregation, no calibration, majority voting, and KD strategies as separate ablations. Keep homogeneous EAD-FL reproduction as a separate configuration; its direct comparison with heterogeneous runs must identify architectural differences.
+Compare architecture-specific FedAvg, DC-FL without filtering, cluster-specific EAD-FL without KD, and EAD-DC-FL. Use S4 plus calibrated strict EAD-FedAvg as the primary matched combined baseline. The current development runners use the three-detector strict ensemble; five-detector and alternative voting choices require their own configurations. Keep alternative aggregation, no calibration, majority voting, and KD strategies as separate ablations. Keep homogeneous EAD-FL reproduction as a separate configuration; its direct comparison with heterogeneous runs must identify architectural differences.
 
 Match data partitions, initial weights, client sample counts, participation, and attack schedules where applicable. Maintain independent random streams for allocation, initialisation, client training, attack construction, and detectors so disabling one component does not change unrelated stochastic conditions.
 
@@ -115,3 +121,17 @@ Report classification macro-F1, accuracy, per-class recall, and per-cluster util
 Vary both total malicious proportion and its allocation across clusters. Record realised proportions, including within-cluster majorities. Examine whether attacks concentrated in the teacher cluster affect other clusters after KD. Clean controls are necessary to measure exclusion caused by contamination assumptions alone.
 
 The current specification does not define a single global prediction ensemble. Per-cluster evaluation uses the same held-out test partition; any summary across clusters must state its weighting rule. Targeted attacks are the principal security evaluation after correctness verification. Use target-specific metrics and backdoor attack success rate as specified in the targeted-attack study. Non-IID severity, smaller proxy sets, small clusters, and participation heterogeneity provide additional conditions.
+
+
+## Matched development controls added 25 October 2026
+
+All new compared conditions must load the same saved initial weights per
+architecture and the same hash-verified data, client allocations, normalisation,
+master and compromised-client selection. All 30 clients participate in each of
+the four development rounds, in a recorded fixed order. Local minibatch row
+orders are generated independently by client/round and Keras shuffling is
+disabled. Changes to any registered input or training budget cause a failure
+before training. EAD may intentionally change aggregation contributors, and KD
+and attacks may intentionally change later models. See
+[matched FedAvg development](matched_fedavg_development.md). Existing Median
+results must not be relabelled or mixed into this new matched baseline.

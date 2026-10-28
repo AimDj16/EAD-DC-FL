@@ -1,5 +1,6 @@
 # Local environments and caches
 .venv/
+.venv-gpu/
 venv/
 __pycache__/
 *.py[cod]
@@ -23,3 +24,7 @@ __pycache__/
 !.env.example
 .DS_Store
 Thumbs.db
+
+# Local migration bundle
+/cloud_inputs.tar
+

@@ -18,6 +18,11 @@ from ead_dc_fl.models_and_kd import (
 )
 
 
+from ead_dc_fl.matched_experiments import (
+    aggregate_models, array_sha256, canonical_sha256, load_matched_experiment,
+    local_training_order, restore_initial_models,
+)
+
 SEED = 42
 LOCAL_EPOCHS = 1
 LOCAL_BATCH = 128
@@ -42,6 +47,11 @@ parser.add_argument("--ead", choices=["on", "off"], required=True)
 parser.add_argument("--kd", choices=["on", "off"], required=True)
 parser.add_argument("--arm", choices=["benign", "attack"], required=True)
 parser.add_argument("--sigma", type=float, required=True)
+parser.add_argument("--aggregation", choices=["fedavg", "median"], default="fedavg")
+parser.add_argument(
+    "--matched-experiment", type=Path,
+    default=Path("data/experiments/idsiot2024/matched_seed42_v1"),
+)
 args = parser.parse_args()
 if not np.isfinite(args.sigma) or args.sigma < 0:
     parser.error("--sigma must be finite and non-negative.")
@@ -134,6 +144,19 @@ def screen(flat_weights, contamination, seed):
     return np.column_stack(flags), records
 
 
+training_settings = {
+    "local_epochs": LOCAL_EPOCHS, "local_batch_size": LOCAL_BATCH,
+    "learning_rate": LEARNING_RATE, "kd_epochs": KD_EPOCHS,
+    "kd_batch_size": KD_BATCH, "kd_temperature": 3.0,
+    "warm_start_rounds": WARM_START_ROUNDS,
+}
+matched = load_matched_experiment(
+    args.matched_experiment, SEED, ROUNDS, training_settings,
+)
+output_dir = output_dir.with_name(
+    f"matched_{args.aggregation}_{matched['experiment_id'][:12]}_{output_dir.name}"
+)
+
 if output_dir.exists():
     raise FileExistsError(
         f"{output_dir} already exists. Existing results are preserved."
@@ -212,6 +235,8 @@ models = {
     for name in architectures
 }
 
+initial_state_sha256 = restore_initial_models(models, matched, args.matched_experiment)
+
 master_dir = Path("outputs/development/master_pretrain_seed42")
 master_report = read_json(master_dir / "report.json")
 master_weights_path = master_dir / "master_weights.npz"
@@ -270,6 +295,14 @@ attack_protocol = {
 output_dir.mkdir(parents=True)
 run_report = {
     "status": "running",
+    "matched_experiment_id": matched["experiment_id"],
+    "matched_experiment_manifest": args.matched_experiment.as_posix() + "/manifest.json",
+    "initial_state_sha256": initial_state_sha256,
+    "participation_policy": matched["participation_policy"],
+    "training_settings": training_settings,
+    "execution_environment": {
+        "python": sys.version, "tensorflow": tf.__version__, "numpy": np.__version__,
+    },
     "mode": args.mode,
     "arm": args.arm,
     "compromised_selection_sha256": sha256(selection_path),
@@ -286,7 +319,10 @@ run_report = {
     ),
     "ead_enabled": args.ead == "on",
     "kd_enabled": args.kd == "on",
-    "aggregation": "coordinate_wise_median",
+    "aggregation": (
+        "sample_weighted_fedavg" if args.aggregation == "fedavg"
+        else "coordinate_wise_median"
+    ),
     "local_epochs": LOCAL_EPOCHS,
     "local_batch_size": LOCAL_BATCH,
     "learning_rate": LEARNING_RATE,
@@ -327,11 +363,14 @@ for round_number in range(1, ROUNDS + 1):
             record for record in client_manifest["clients"]
             if record["architecture"] == architecture
         ]
+        members_by_id = {member["client_id"]: member for member in members}
+        members = [members_by_id[cid] for cid in matched["participation"][str(round_number)][architecture]]
         assert len(members) == 10
 
         local_model = build_model(
             architecture, len(feature_names), len(classes)
         )
+        local_training_orders = {}
         uploads = []
         client_ids = []
         losses = []
@@ -342,6 +381,10 @@ for round_number in range(1, ROUNDS + 1):
             client_id = member["client_id"]
             tf.keras.utils.set_random_seed(SEED + 1000 * round_number + client_id + 1)
             rows = allocations[f"client_{client_id:02d}"]
+            local_order = local_training_order(
+                len(rows), SEED + 1000 * round_number + client_id + 1,
+            )
+            local_training_orders[str(client_id)] = array_sha256(rows[local_order])
             local_model.set_weights(initial_weights)
 
             # Fresh optimiser for each client's local training.
@@ -355,9 +398,9 @@ for round_number in range(1, ROUNDS + 1):
             assert np.array_equal(local_labels, labels[rows])
 
             history = local_model.fit(
-                get_features(rows), local_labels,
+                get_features(rows)[local_order], local_labels[local_order],
                 epochs=LOCAL_EPOCHS, batch_size=LOCAL_BATCH,
-                shuffle=True, verbose=0,
+                shuffle=False, verbose=0,
             )
             loss = float(history.history["loss"][-1])
             assert np.isfinite(loss)
@@ -418,13 +461,12 @@ for round_number in range(1, ROUNDS + 1):
         if fallback:
             server_model.set_weights(initial_weights)
         else:
-            aggregate = [
-                np.median(np.stack([
-                    uploads[position][tensor_index]
-                    for position in accepted_positions
-                ]), axis=0)
-                for tensor_index in range(len(initial_weights))
-            ]
+            aggregate = aggregate_models(
+                [uploads[position] for position in accepted_positions],
+                [len(allocations[f"client_{client_ids[position]:02d}"])
+                 for position in accepted_positions],
+                rule=args.aggregation,
+            )
             server_model.set_weights(aggregate)
             eligible_teachers.append(architecture)
 
@@ -433,6 +475,17 @@ for round_number in range(1, ROUNDS + 1):
         )
         cluster_reports[architecture] = {
             "client_ids": client_ids,
+            "local_training_order_sha256": local_training_orders,
+            "accepted_sample_counts": {
+                str(client_ids[position]): int(len(allocations[f"client_{client_ids[position]:02d}"]))
+                for position in accepted_positions
+            },
+            "fedavg_coefficients": ({
+                str(client_ids[position]): float(
+                    len(allocations[f"client_{client_ids[position]:02d}"]) /
+                    sum(len(allocations[f"client_{client_ids[p]:02d}"]) for p in accepted_positions)
+                ) for position in accepted_positions
+            } if args.aggregation == "fedavg" and not fallback else None),
             "local_losses": losses,
             "upload_diagnostics": upload_diagnostics,
             "initial_detection": initial_detection,
@@ -588,8 +641,15 @@ for round_number in range(1, ROUNDS + 1):
         )
         checkpoint_hashes[architecture] = sha256(checkpoint)
 
+    actual_participation = {
+        name: cluster_reports[name]["client_ids"] for name in architectures
+    }
+    if actual_participation != matched["participation"][str(round_number)]:
+        raise RuntimeError("Actual participation differs from the shared schedule.")
     round_report = {
         "round": round_number,
+        "participation": actual_participation,
+        "participation_sha256": canonical_sha256(actual_participation),
         "phase": "master_warm_start" if warm_phase else "adaptive",
         "teacher": teacher_name,
         "teacher_tie_breaking": list(architectures),
@@ -625,3 +685,4 @@ print(f"Mode: {args.mode}")
 print("Test evaluated: NO")
 print("Final protocol frozen: NO")
 print(f"Saved: {output_dir / 'report.json'}")
+
