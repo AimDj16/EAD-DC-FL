@@ -626,3 +626,47 @@ Next: consolidate Chapter4/5 and viva claims, then predeclare remaining evaluati
 before final-test use. Upstream provenance, validation reuse, H_S/H_P coverage,
 held-out threats, proxy dependence and fuller costs remain limits, not resolved
 by this completed development/control block.
+
+
+### Implemented protocol clarification and additional-results priorities, 28 October 2026
+
+The user asked what has been achieved, what protocol was agreed, and indicated
+time for further results. Rechecked the current runner, source audit, data protocol,
+early method specification and supplied two-page thesis structure. Added
+[implemented_development_protocol_20261028.md](implemented_development_protocol_20261028.md)
+as an explicit retrospective record of executed development settings, not a
+preregistered or final-frozen protocol. The early method specification now links it,
+preserving historical proposals rather than silently rewriting them.
+
+Executed settings remain FedAvg, three MLP capacities, disjoint IID allocations,
+30 fully participating clients, three seeds,12rounds, predict/decision_function
+three-strict EAD with per-group/round0.20->0.30 count-disagreement rerun, original
+unconditional master rounds1–3 then adaptive accuracy-guarded KD. Main48FL runs and
+six separate server-only references remain as verified. The early draft proposed
+at least5seeds; only3were used in the executed development programme. The final
+replication budget is still to be explicitly decided, not retrospectively frozen.
+
+The strongest proposed next stage is controlled statistical label skew: four
+component cells × benign/targeted × three seeds,24newdevelopment runs. Keep the
+top-level partitions/scaler/master/architecture initial states and participation;
+redistribute within each architecture's training pool with fixed client capacities.
+A capacity-constrained Dirichlet alpha0.5 allocator is a recommendation, not yet
+agreed/implemented/final. Inspect realised skew on training data, not attack/test
+performance. Fixed attacker IDs require new allocation-specific poison lists and
+explicit attack-opportunity counts; do not force the old1497label flips.
+
+Participation heterogeneity is a separately proposed later stage: uniform versus
+unequal actual inclusion probabilities with matched means and comparable attacker
+availability, saved common schedules and admissible detector cohorts. A bounded
+FedAvg-versus-combined, benign/targeted, two-profile, three-seed design would add24
+runs but would not decompose EAD/KD effects under H_P. Exact sampler/profiles and
+failure policies remain unresolved. Existing full-cohort manifests/ten-upload
+assertions require a new identified implementation; no old code/manifest is edited.
+
+These extensions are proposed evidence priorities, not new agreements or finished
+implementation. Chapter3's frozen impact questions and WEAD-FL remain distinct.
+The supplied structure places empirical heterogeneity studies onpage1 and proposed
+solutions/synthesis onpage2; it does not specify new allocation/sampling parameters.
+Finaltest untouched and finalprotocol unfrozen. Verified existing checkpoints may
+support later locked held-out reporting for unchanged conditions, with explicit
+snapshot and provenance limits, rather than automatic retraining of every run.
