@@ -1,5 +1,9 @@
 # Within-FL master and recurring-KD controls
 
+Seed-42 execution completed and verified 28 October 2026. See
+[kd_schedule_seed42_results.md](kd_schedule_seed42_results.md) for the results,
+source checks, one-seed limitations and the planned replication decision.
+
 Registered 28 October 2026, before running these controls. This is a separate, bounded
 development diagnostic. The original 36 FL runs, their source, manifests and results
 remain unchanged. Final-test evaluation and final-protocol freezing are not performed.
