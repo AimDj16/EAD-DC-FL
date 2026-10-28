@@ -565,3 +565,64 @@ kd_schedule_seed2026_v1_reports.tar.gz if already completed, without rerunning
 existing conditions. No new factor sweep is needed before that inspection.
 Results: [kd_schedule_seed31415_results.md](kd_schedule_seed31415_results.md).
 Audit and216trajectory rows: docs/evidence/kd_schedule_seed31415_20261028/.
+
+
+### KD schedule control programme complete: three seeds, 28 October 2026
+
+Received and inspected kd_schedule_seed2026_v1_reports.tar.gz, SHA256
+1766790026bfb1fe10c3862735c92bf692d89c05dbc4eb21545bf57b35d943fa.
+All four new controls and two original references pass the same source/report,
+manifest, common-input, initial-hash, cohort/order, first-preKD and warm-start-prefix
+checks. Recomputed the full summary exactly and checked attack/EAD/FedAvg/teacher/
+KD commitment records. Array/checkpoint reloading remains a runtime-reported check,
+not independent analysis from the aggregate archive. Test not evaluated, final
+protocol not frozen.
+
+All requested KD-control archives are now received. The programme has 48 verified
+completed 12-round FL runs: 36main plus12KD schedule controls. Six server-only fits
+remain separate. Earlier pilots, tests and diagnostic replays are excluded.
+The control comparison comprises18reports: 12new and6reused main-study references.
+Three seeds are independent run replications conditional on the fixed data
+partition, master and compromised identities; 648round/architecture records are
+not independent replications.
+
+Original fullKD and warm-start-only each match their policy-matched benign
+committed TMR at every one of108seed/architecture/round observations. Absolute
+finalTMR remains2/801. Recurring KD after round3 is unnecessary to reproduce this
+specific measured security result in these three tested configurations, with EAD,
+FedAvg, master warm-start and local training retained. Do not claim master-only
+sufficiency, absence of other harm or general robustness.
+
+Adaptive-only worst positive excess by seed:42=52.81pp,2026=0.50pp,31415=0.37pp.
+Seed2026 per-architecture peaks Small0.1248,Medium0.4994,Deep0.1248pp.
+Thus no-master security is seed-dependent. Retain both beneficial and harmful
+accepted-KD examples rather than claiming a universally necessary master.
+In seed2026, fullKD attacked Medium teaches all adaptive rounds and receives no
+later KD; its recorded checkpoint hashes match warm-start-only all12rounds.
+Benign Medium also matches, including a rejected round10candidate.
+
+Attacked endpoint macroF1 mean±sampleSD% across3runs:
+full Small83.80±2.03,Medium86.19±2.52,Deep84.13±1.42;
+warm-only Small82.86±2.36,Medium83.87±4.53,Deep83.70±1.01;
+adaptive-only Small76.84±1.99,Medium79.03±3.43,Deep80.44±5.59.
+Paired full-minus-warm mean±SD pp: Small0.94±3.65,Medium2.32±2.01,
+Deep0.43±1.33. Signs vary:5architecture/seed improvements,3decreases,1tie.
+These are descriptive, not significance or nine-independent-run claims.
+Benign Deep meanF1 is lower underfull thanwarm-only83.90vs84.41%.
+Utility and security support different qualified conclusions.
+
+Pooled attack TP/FN/FP/TN: full287/37/3/753, warm287/37/3/753,
+adaptive289/35/0/756. CleanFP120/1080,131/1080,125/1080 respectively.
+Equal pooled counts do not imply identical masks. All12newcontrols record
+27653.91seconds=7.68hours, excluding reused references/inherited pretraining.
+Seed2026 alone adds9212.72seconds=2.56hours.
+
+Close this bounded control programme without new schedule variants or repeats.
+Preserve original method and variant identities. Consolidated report:
+[kd_schedule_three_seed_results.md](kd_schedule_three_seed_results.md).
+Combined audit/mean-SD CSV under docs/evidence/kd_schedule_three_seed_20261028/;
+seed2026 round records under docs/evidence/kd_schedule_seed2026_20261028/.
+Next: consolidate Chapter4/5 and viva claims, then predeclare remaining evaluation
+before final-test use. Upstream provenance, validation reuse, H_S/H_P coverage,
+held-out threats, proxy dependence and fuller costs remain limits, not resolved
+by this completed development/control block.
