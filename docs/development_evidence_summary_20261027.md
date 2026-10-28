@@ -1,5 +1,8 @@
 # EAD–DC–FL: consolidated development evidence and viva brief
 
+**Additional evidence,28October2026:** the fixed-master replay and six seed42central-only reference fits are complete. Their validation accuracy is64–68%, compared with about86%for the matched benign combined FL run. All central references already have99.50%Malware recall and2/801Malware-to-Normal errors. These tested central-only procedures do not reproduce overall FL utility, while trusted server supervision remains a plausible contributor to targeted protection. The controls are unpoisoned, one-seed and not compute-matched; they do not isolate the master contribution within FL. See [server_supervision_seed42_results.md](server_supervision_seed42_results.md). The main matched FL count remains36.
+
+
 Evidence reviewed on27October2026. The main development package contains36completed12round runs: three training seeds × four component conditions × three scenarios (benign, Gaussian poisoning and targeted label flipping). The12benign runs are shared controls for both attack families. Earlier four-round pilots, fidelity checks and methodological variants are additional diagnostics, excluded from this count.
 
 ## What was implemented and verified
