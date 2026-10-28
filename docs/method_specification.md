@@ -1,5 +1,11 @@
 # EAD-DC-FL method specification
 
+Historical planning specification. For the settings actually executed and the
+separate, not-yet-implemented extensions, see
+[implemented_development_protocol_20261028.md](implemented_development_protocol_20261028.md).
+Its provisional detector, seed and evaluation proposals below are not a record
+that those conditions were executed or that the final protocol was frozen.
+
 Version 0.2, 14 October 2026. Status: planning specification, not an implemented or validated method.
 
 ## Objective
