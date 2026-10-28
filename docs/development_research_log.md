@@ -460,3 +460,57 @@ round-12 utility; do not use rounds or clients as independent replications.
 Replicate a substantive one-seed interpretation with the two existing additional
 seed contracts before stronger claims. No final-test use, final protocol freezing,
 proxy tuning or change to the main36-run evidence package occurs in this stage.
+
+
+### Within-FL KD schedule controls completed, 28 October 2026
+
+Inspected kd_schedule_seed42_v1_reports.tar.gz, SHA256
+d9e73c1416c416379ff1cea52d58063b1e77c98fe055d84ef046deeae76ca7ee.
+Four new seed42,12round EAD-on/FedAvg controls completed, with the two original
+full-KD references reused. Source/report hashes match; original reference bytes
+match earlier archives; common fingerprints, initial tensors, participation and
+orders agree. Recomputed every summary exactly. Round-1 pre-KD records match for
+all controls. Warm-start-only round1–3 cluster records and recorded checkpoint
+hashes match original references, with runtime exact-tensor checks reported.
+Actual checkpoint/data/prediction arrays are not in this aggregate upload.
+
+Key finding: both original full KD and warm-start-only have zero excess committed
+Malware-to-Normal TMR at all36architecture/round observations under their own benign
+controls. Recurring KD after round3 is therefore unnecessary to reproduce that
+specific protection in this one-seed setting. This does not establish master-only
+sufficiency, since EAD/FedAvg/local training remain, or protection of other metrics.
+
+Adaptive-only peaks: Small0.1248pp, Medium13.1086pp, Deep52.8090pp. Attacked Deep
+is teacher all12rounds and never receives KD; its checkpoint hashes match earlier
+EAD-only Deep at every round. Benign Deep hashes also match earlier EAD-only Deep.
+Deep round7 retains424/801target errors against1/801benign, with all3attackers
+accepted. This exposes both screening misses and teacher self-skip limitations.
+
+New accepted-KD failure: adaptive-only round3, Deepteacher89target errors;
+Medium preKD0/801, candidate105/801, accepted. Accuracy81.7763->90.5526% and
+macro-F178.5225->80.0525%, while TMR worsens13.1086pp. Counts support security
+deterioration during KD, without proving per-example teacher/student error identity.
+Round7 Small/Medium candidates have428/425errors but are rejected; Deep retains424.
+
+Attacked round12accuracy/macroF1%:
+- FullKD Small86.38/85.11, Medium86.01/84.66, Deep86.01/84.66.
+- Warm-start-only Small85.22/84.39, Medium83.76/81.19, Deep85.87/84.86.
+- Adaptive-only Small83.53/75.89, Medium84.95/82.31, Deep94.05/86.41.
+High final Deep utility conceals earlier security failure. FullKD does not dominate
+all utility metrics. Warm-start-only Medium still loses macroF1 against benign,
+despite zero excess targeted error.
+
+Attack screening TP/FN/FP/TN: full100/8/0/252, warm101/7/0/252,
+adaptive95/13/0/252. Clean false rejections37/360,40/360,42/360respectively.
+All36attackedgroup-rounds trigger calibration under each policy. These are repeated
+submissions, not independent replications. Four new elapsed times sum8998.01seconds,
+2.50hours; KD exposure differs and master-pretraining cost is inherited.
+
+Results: [kd_schedule_seed42_results.md](kd_schedule_seed42_results.md);
+audit/216trajectory rows under docs/evidence/kd_schedule_seed42_20261028/.
+Main36run evidence unchanged, plus4new FL controls and6earlier central-only fits.
+Finaltest untouched, finalprotocol notfrozen. Recommended next bounded step is the
+same four controls with existing seed2026/31415contracts, eight additional runs,
+before stronger claims. Preserve original policy and report seed dependence if the
+finding fails to replicate. Chapter4/5 must qualify the role of master supervision
+and recurring KD, rather than attributing the measured protection to recurring KD alone.
