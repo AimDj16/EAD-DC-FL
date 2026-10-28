@@ -1,5 +1,15 @@
 # EAD–DC–FL: implemented development protocol and proposed next experiments
 
+
+**Subsequent implementation update, 28 October 2026:** the user authorised the
+24-run statistical label-skew block below. Its separate code, synthetic checks and
+pre-run protocol are prepared; actual UWE allocation statistics, GPU fidelity replay
+and numerical outcomes remain pending. See
+[labelskew_development_protocol.md](labelskew_development_protocol.md). The existing
+48 completed FL runs remain unchanged. Participation heterogeneity and the final
+evaluation protocol remain separate, unresolved work.
+
+
 Recorded 28 October 2026 after inspection of the executed source and uploaded
 reports. This documents the completed development procedure; it is not a
 retrospective preregistration or a frozen final-evaluation protocol. Proposed
