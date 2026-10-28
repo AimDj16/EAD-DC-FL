@@ -1,36 +1,43 @@
 # EAD–DC–FL: consolidated development evidence and viva brief
 
 
-## Additional within-FL controls, verified 28 October 2026
+## Within-FL KD controls complete, verified 28 October 2026
 
-The main 36-run study is unchanged. Eight additional controls across seeds 42 and
-31415 now separate master warm-start from recurring adaptive KD, reusing the
-original EAD-on full-KD benign/targeted pairs. Both full KD and warm-start-only
-match their own benign committed targeted-error rates at all 72 architecture/round
-observations across these two seeds. Recurring KD after round 3 is not required
-to reproduce that specific protection in these evaluated configurations. EAD,
-FedAvg and client training remain; this is not evidence of master-only sufficiency.
+All three requested archives are received and verified. The main 36-run study is
+unchanged; 12 additional controls across seeds 42, 2026 and 31415 separate master
+warm-start from recurring adaptive KD. There are now 48 verified completed 12-round
+FL runs, with six central-only fits counted separately. Earlier pilots/tests/replays
+are excluded. The schedule comparison reuses six original full-KD references.
 
-The no-master-teaching adaptive control is seed-dependent. Seed 42 has peak excess
-targeted error of 13.11 pp in Medium and 52.81 pp in Deep; seed 31415 has peaks of
-0.12 pp, 0.37 pp and 0.12 pp in Small/Medium/Deep. Master teaching cannot be claimed
-universally necessary from these comparisons. There are two independent run
-replications per condition, not 72 independent runs.
+Both original full KD and warm-start-only match their policy-matched benign
+committed targeted-error rates at all 108 seed/architecture/round observations per
+policy. Recurring KD after round 3 is not required to reproduce this specific result
+in these three evaluated configurations. EAD, FedAvg, master warm-start and local
+training remain; master-only sufficiency is not established. Absolute errors remain,
+and zero excess in one target transition is not absence of all poisoning effects.
 
-KD has contrasting security outcomes. In seed-42 round 3, an accepted Medium
-candidate increases accuracy 81.78->90.55% and macro-F1 78.52->80.05% while targeted
-errors increase 0->105/801. In seed-31415 round 2, accepted Medium-to-Deep KD reduces
-targeted errors 101->1/801 while accuracy and macro-F1 improve. Deep is always the
-attacked teacher and never a recipient in seed 42, but receives seven KD phases in
-seed 31415. These observations motivate stage-specific evaluation of teacher
-selection, recipient eligibility and metric alignment, without proving the sole
-cause of every seed difference. Endpoint utility also has architecture/seed trade-offs.
+Adaptive-only worst positive excess TMR is 52.81 pp in seed 42, 0.50 pp in seed 2026
+and 0.37 pp in seed 31415. Master teaching cannot be claimed universally necessary.
+KD both worsens targeted behaviour under accepted accuracy/macro-F1 gains and
+repairs targeted errors in other recorded steps. Teacher selection and recipient
+self-skipping materially affect interpretation. Counts do not identify per-example
+transfer or the sole cause of every seed difference.
 
-Full results: [seed 42](kd_schedule_seed42_results.md) and
-[seed 31415](kd_schedule_seed31415_results.md). The verified FL count is now 44,
-with six central-only fits separate. The seed-2026 control archive is still missing;
-inspect it before a three-seed summary. Preserve the original method and report
-seed dependence. Final test untouched; final protocol unfrozen.
+Full-KD attacked endpoint macro-F1 means are 83.80/86.19/84.13% for Small/Medium/Deep,
+versus warm-start-only 82.86/83.87/83.70% and adaptive-only 76.84/79.03/80.44%.
+Paired full-minus-warm effects vary by seed: mean effects are +0.94/+2.32/+0.43 pp,
+with sample SD 3.65/2.01/1.33 pp. These descriptive three-run results do not establish
+statistical significance or universal utility gains. Runs, not clients, architectures
+or rounds, are the replication unit, conditional on fixed data/master/attacker IDs.
+
+The bounded schedule-control programme is complete. Preserve the original main
+method and the two identifiable ablations; stop adding schedule variants to this
+block. Consolidated source checks, tables, trade-offs and Chapter 4/5 implications:
+[kd_schedule_three_seed_results.md](kd_schedule_three_seed_results.md). The 12
+controls record 7.68 hours, excluding inherited master pre-training and reused
+references. Final test remains untouched; final protocol remains unfrozen. Data
+provenance, validation reuse, broader heterogeneity/threats, proxy dependence and
+fuller costs remain limitations or separately prioritised evaluation work.
 
 
 **Additional evidence,28October2026:** the fixed-master replay and six seed42central-only reference fits are complete. Their validation accuracy is64–68%, compared with about86%for the matched benign combined FL run. All central references already have99.50%Malware recall and2/801Malware-to-Normal errors. These tested central-only procedures do not reproduce overall FL utility, while trusted server supervision remains a plausible contributor to targeted protection. The controls are unpoisoned, one-seed and not compute-matched; they do not isolate the master contribution within FL. See [server_supervision_seed42_results.md](server_supervision_seed42_results.md). The main matched FL count remains36.
