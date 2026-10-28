@@ -670,3 +670,49 @@ solutions/synthesis onpage2; it does not specify new allocation/sampling paramet
 Finaltest untouched and finalprotocol unfrozen. Verified existing checkpoints may
 support later locked held-out reporting for unchanged conditions, with explicit
 snapshot and provenance limits, rather than automatic retraining of every run.
+
+
+### Controlled statistical-heterogeneity block authorised and prepared, 28 October 2026
+
+The user accepted the24run non-IID stage. Added separate label_skew module,
+prepare_labelskew_development.py, run_labelskew_development.py,
+run_labelskew_batch.py, test_label_skew.py and the immutable pre-run protocol
+[ labelskew_development_protocol.md ](labelskew_development_protocol.md).
+Original IID/model/attack/aggregation/preparation files are unchanged; the original
+IID runner was re-fetched and remains byte-identical.
+
+Allocation: alpha0.5, allocationseed42, within existing architecture training pools,
+with fixed client capacities and class totals. IPF plus residual integer flow
+preserves exact margins; row shuffling uses separate streams. Record TV/JS/class
+coverage; training labels only determine allocation. Predeclared eligibility:
+each group meanTV>=0.10 and >IID+0.05; positive total compromised Malware opportunity.
+No automatic redraw or movement of attackers. Same nine designated clients;
+derive new poison rows and distinguish actual label changes/zero opportunity.
+Changed attack opportunity limits fixed-dose causal interpretation.
+
+Three new contracts copy saved seed42/2026/31415 initial checkpoints and bind
+original/new files, sources, allocation diagnostics and protocol hashes. Four
+EAD/KD cells × benign/targeted × three seeds=24new12round development runs.
+Full30client participation, FedAvg, original EAD and original master/adaptive KD
+are retained. Added confusion counts/Normal false alarms, label/submission and
+aggregate hashes are diagnostics, not a new defence or gate.
+
+The batch first requires exact four-round original IID seed42combined-benign
+replay, including checkpoint tensors on UWE. This covers master and first adaptive
+phases, permits only additional diagnostic fields, stops on mismatch, and does not
+count as another scientific condition. It checks24original IID references, runs
+sequentially, preserves incomplete/different outputs and reuses verified completion.
+Archive: labelskew_a0p5_alloc42_three_seed_reports_v1.tar.gz.
+
+All49localtests passed, including15new allocation/audit/preparation tests.
+Synthetic end-to-end preparation uses invalid labels outside training without
+accessing them for allocation, preserves old files, copies normalisation/initial
+states, verifies reuse and rejects altered allocations. Syntax/batchCLI checks pass.
+New remote files match local contents. Actual UWE data/checkpoints and TensorFlow
+are unavailable here, so real allocation statistics, GPU replay and24outcomes remain
+pending. The completed verified count remains48FL runs plus6server-only fits.
+Finaltest untouched; finalprotocol unfrozen. H_P is outside this block.
+
+Next on UWE: pull, run test_label_skew.py, run_labelskew_batch.py --prepare-only,
+then the full batch after passing checks. The implemented-development protocol
+now links the authorised code while distinguishing pending numerical outcomes.
